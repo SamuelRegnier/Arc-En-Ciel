@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Niveau Sarments{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="d-flex justify-content-center">Niveaux école Sarments</h1>
+        {% for level in levels %}
+            <div class="card text-white bg-primary mb-3 d-flex justify-content-center" style="max-width: 20rem;">
+                <div class="card-header">{{level.name}}
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">{{level.name}}</h4>
+                    <p class="card-text">{{level.name}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(levels) }}
+    </div>
+</div>
+
+{% endblock %}
