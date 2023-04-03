@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\LevelRepository;
 Use Knp\Component\Pager\PaginatorInterface;
+Use Doctrine\ORM\EntityManagerInterface;
+Use App\Entity\Level;
+Use App\Form\LevelType;
 
 class LevelController extends AbstractController
 {
@@ -21,5 +24,20 @@ class LevelController extends AbstractController
         );
         
         return $this->render('level/index.html.twig', ['levels' => $levels]);
+    }
+
+    #[Route('/level/new', name: 'new_level')]
+    public function new(Request $request,EntityManagerInterface $manager): Response
+    {
+        $level = new Level();
+        $form = $this->createForm(LevelType::class, $level);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($level);
+            $manager->flush();
+            return $this->redirectToRoute('app_level');
+        }
+        return $this->render('level/new.html.twig', ['form' => $form->createView()]);
     }
 }

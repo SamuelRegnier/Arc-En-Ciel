@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création Niveau{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+    <h1 class="d-flex justify-content-center">Création Niveau</h1>
+    {{form_start(form)}}
+        {{form_widget(form.name)}}
+        {{form_row(form.submit)}}
+    {{form_end(form)}}
+</div>
+
+{% endblock %}
