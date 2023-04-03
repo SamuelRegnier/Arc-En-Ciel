@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ClassroomRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\Validator\Constraints as Assert;
@@ -23,6 +24,9 @@ class Classroom
     #[ORM\Column(length: 10)]
     #[Assert\NotBlank]
     private ?string $year = null;
+
+    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    private $picture = null;
 
     public function getId(): ?int
     {
@@ -49,6 +53,18 @@ class Classroom
     public function setYear(string $year): self
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    public function setPicture($picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

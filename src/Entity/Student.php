@@ -38,6 +38,9 @@ class Student
     #[ORM\Column]
     private ?bool $outdoorGlasses = null;
 
+    #[ORM\Column(type: Types::BLOB, nullable: true)]
+    private $picture = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Student
     public function setOutdoorGlasses(bool $outdoorGlasses): self
     {
         $this->outdoorGlasses = $outdoorGlasses;
+
+        return $this;
+    }
+
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    public function setPicture($picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }
