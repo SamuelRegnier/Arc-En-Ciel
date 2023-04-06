@@ -27,7 +27,9 @@ class LevelController extends AbstractController
     }
 
     #[Route('/level/new', name: 'new_level')]
-    public function new(Request $request,EntityManagerInterface $manager): Response
+    public function new(Request $request,
+    EntityManagerInterface $manager
+    ): Response
     {
         $level = new Level();
         $form = $this->createForm(LevelType::class, $level);
