@@ -14,16 +14,21 @@ class Exercise
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\NotBlank]
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message:'Merci d\'entrer un nom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le nom ne doit pas dépasser 30 caracères.')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message:'Merci d\'entrer une date de retour')]
     private ?\DateTimeInterface $returnDate = null;
+
+    #[ORM\Column(length: 1000)]
+    #[Assert\NotBlank(message:'Merci d\'entrer une description')]
+    #[Assert\Length(max: 1000 ,maxMessage:'La description ne doit pas dépasser 1000 caracères.')]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -50,6 +55,18 @@ class Exercise
     public function setReturnDate(\DateTimeInterface $returnDate): self
     {
         $this->returnDate = $returnDate;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

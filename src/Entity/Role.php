@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RoleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
 class Role
@@ -14,6 +15,8 @@ class Role
     private ?int $id = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un nom')]
+    #[Assert\Length(max: 20 ,maxMessage:'Le rôle ne doit pas dépasser 20 caracères.')]
     private ?string $name = null;
 
     public function getId(): ?int

@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -16,19 +17,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un nom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le nom ne doit pas dépasser 30 caracères.')]
     private ?string $lastName = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un prénom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le prénom ne doit pas dépasser 30 caracères.')]
     private ?string $firstName = null;
 
-    #[ORM\Column(length: 180, unique: true)]
+    #[ORM\Column(length: 50, unique: true)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un email')]
+    #[Assert\Length(max: 50 ,maxMessage:'L\'email ne doit pas dépasser 50 caracères.')]
     private ?string $email = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 15)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un téléphone')]
+    #[Assert\Length(max: 15 ,maxMessage:'Le téléphone ne doit pas dépasser 15 caracères.')]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 150)]
+    #[Assert\NotBlank(message:'Merci d\'entrer une adresse')]
+    #[Assert\Length(max: 150 ,maxMessage:'L\'adresse ne doit pas dépasser 150 caracères.')]
     private ?string $adress = null;
 
     #[ORM\Column]
@@ -43,7 +54,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string The hashed password
      */
-    #[ORM\Column]
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un mot de passe')]
+    #[Assert\Length(max: 255 ,maxMessage:'Le mot de passe ne doit pas dépasser 255 caracères.')]
     private ?string $password = null;
 
     public function getId(): ?int

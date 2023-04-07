@@ -14,15 +14,16 @@ class Classroom
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Assert\NotBlank]
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message:'Merci d\'entrer un nom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le nom ne doit pas dépasser 30 caracères.')]
     private ?string $name = null;
 
     #[ORM\Column(length: 10)]
-    #[Assert\NotBlank]
+    #[Assert\NotBlank(message:'Merci d\'entrer une date')]
+    #[Assert\Length(max: 10 ,maxMessage:'La date ne doit pas dépasser 10 caracères.')]
     private ?string $year = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]

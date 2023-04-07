@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\StudentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
 class Student
@@ -15,24 +16,33 @@ class Student
     private ?int $id = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un nom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le nom ne doit pas dépasser 30 caracères.')]
     private ?string $lastName = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un prénom')]
+    #[Assert\Length(max: 30 ,maxMessage:'Le prénom ne doit pas dépasser 30 caracères.')]
     private ?string $firstName = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Assert\NotBlank(message:'Merci d\'entrer un date')]
     private ?\DateTimeInterface $birthday = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 30, nullable: true)]
+    #[Assert\Length(max: 30 ,maxMessage:'Le PAI ne doit pas dépasser 30 caracères.')]
     private ?string $pai = null;
 
-    #[ORM\Column(length: 1000)]
+    #[ORM\Column(length: 1000, nullable: true)]
+    #[Assert\Length(max: 1000 ,maxMessage:'La description du PAI ne doit pas dépasser 1000 caracères.')]
     private ?string $descriptionPai = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 30, nullable: true)]
+    #[Assert\Length(max: 30 ,maxMessage:'Les allergies ne doivent pas dépasser 30 caracères.')]
     private ?string $allergy = null;
 
-    #[ORM\Column(length: 1000)]
+    #[ORM\Column(length: 1000, nullable: true)]
+    #[Assert\Length(max: 1000 ,maxMessage:'La description des allergies ne doit pas dépasser 1000 caracères.')]
     private ?string $descriptionAllergy = null;
 
     #[ORM\Column]
