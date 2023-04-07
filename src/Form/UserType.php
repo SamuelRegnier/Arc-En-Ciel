@@ -62,7 +62,7 @@ class UserType extends AbstractType
                     'Non' => false,
                 ],
                     'label' => 'Actif'
-                ],
+                ]
                 )
             ->add('password',TextType::class,[
                 'attr' => [
@@ -70,11 +70,14 @@ class UserType extends AbstractType
                     'placeholder' => 'Mot De Passe'
                 ],
                     'label' => 'Mot de passe'
+                ])
+            ->add('confirmationPassword',TextType::class,[
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Confirmation Mot De Passe'
                 ],
-                [
                 'mapped' => false,
-                'label' => 'Mot De Passe : ',
-                'attr' => ['autocomplete' => 'new-password']
+                'label' => 'Confirmation : ',
                 ])
             ->add('picture',FileType::class,[
                 'attr' => [
@@ -82,6 +85,21 @@ class UserType extends AbstractType
                 ],
                     'label' => 'Photo'
                 ],
+                )
+            ->add('roles', ChoiceType::class,[
+                'attr' => [
+                    'class' => 'form-select',
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'choices' => [
+                    'Administrateur' => 'Administrateur',
+                    'Enseignant' => 'Enseignant',
+                    'Bénévole' => 'Bénévole',
+                    'Parent' => 'Parent',
+                ],
+                    'label' => 'Role'
+                ]
                 )
             ->add('submit', SubmitType::class, [
                 'attr' => [
