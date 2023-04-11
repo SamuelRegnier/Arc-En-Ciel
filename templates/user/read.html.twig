@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs Sarments{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="d-flex justify-content-center">Utilisateurs école Sarments</h1>
+        {% for user in users %}
+            <div class="card text-white bg-primary mb-3 d-flex justify-content-center" style="max-width: 20rem;">
+                <div class="card-header">{{user.lastName}} {{ user.firstName}}
+                </div>
+                <div class="card-body">
+                    <img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}">
+                    <p class="card-text">{{user.email}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(users) }}
+    </div>
+</div>
+
+{% endblock %}

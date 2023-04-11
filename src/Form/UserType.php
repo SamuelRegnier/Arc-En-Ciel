@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
@@ -62,7 +62,7 @@ class UserType extends AbstractType
                     'Non' => false,
                 ],
                     'label' => 'Actif'
-                ],
+                ]
                 )
             ->add('password',TextType::class,[
                 'attr' => [
@@ -70,18 +70,36 @@ class UserType extends AbstractType
                     'placeholder' => 'Mot De Passe'
                 ],
                     'label' => 'Mot de passe'
-                ],
-                [
-                'mapped' => false,
-                'label' => 'Mot De Passe : ',
-                'attr' => ['autocomplete' => 'new-password']
                 ])
-            ->add('picture',FileType::class,[
+            ->add('confirmationPassword',TextType::class,[
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Confirmation Mot De Passe'
+                ],
+                'mapped' => false,
+                'label' => 'Confirmation : ',
+                ])
+            ->add('imageFile',VichImageType::class,[
                 'attr' => [
                     'class' => 'formFile',
                 ],
                     'label' => 'Photo'
                 ],
+                )
+            ->add('roles', ChoiceType::class,[
+                'attr' => [
+                    'class' => 'form-select',
+                ],
+                'expanded' => false,
+                'multiple' => true,
+                'choices' => [
+                    'Administrateur' => 'Administrateur',
+                    'Enseignant' => 'Enseignant',
+                    'Bénévole' => 'Bénévole',
+                    'Parent' => 'Parent',
+                ],
+                    'label' => 'Role'
+                ]
                 )
             ->add('submit', SubmitType::class, [
                 'attr' => [
