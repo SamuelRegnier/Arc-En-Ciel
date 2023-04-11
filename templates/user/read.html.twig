@@ -10,11 +10,14 @@
                 <div class="card-header">{{user.lastName}} {{ user.firstName}}
                 </div>
                 <div class="card-body">
-                    <img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}">
+                    <a href="{{ path('user_update', { id: user.id }) }}"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
                     <p class="card-text">{{user.email}}</p>
                 </div>
             </div>
         {% endfor %}
+    <div>
+        <a href="{{ path('user_create') }}"><button>Créer profil</button></a>
+    </div>
     <div class="navigation d-flex justify-content-center">
         {{ knp_pagination_render(users) }}
     </div>

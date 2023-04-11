@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="d-flex justify-content-center">Modification Utilisateur</h1>
+        {{form_start(form)}}
+            {{form_widget(form)}}
+        {{form_end(form)}}
+    </div>
+{% endblock %}
