@@ -39,6 +39,7 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            //dd($user);
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('app_home');
