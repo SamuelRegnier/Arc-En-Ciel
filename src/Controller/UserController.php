@@ -29,6 +29,16 @@ class UserController extends AbstractController
         return $this->render('user/read.html.twig', ['users' => $users]);
     }
 
+    #[Route('/user/select/{id}', name: 'user_select_id')]
+    public function selectById(UserRepository $repository,
+     int $id
+      ): Response
+    {
+        $user =  $repository ->findOneBy(['id' => $id]);
+        
+        return $this->render('user/select.html.twig', ['user' => $user]);
+    }
+
     #[Route('/user/new', name: 'user_create')]
     public function create(Request $request,
     EntityManagerInterface $manager
