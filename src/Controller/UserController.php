@@ -49,4 +49,25 @@ class UserController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    #[Route('/user/update/{id}', name: 'user_update')]
+    public function edit(
+    User $user,
+    Request $request,
+    EntityManagerInterface $manager
+    ): Response
+    {
+        $form = $this->createForm(UserType::class, $user);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('user/update.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
 }
