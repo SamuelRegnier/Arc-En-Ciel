@@ -23,7 +23,7 @@ class UserController extends AbstractController
         $users = $paginator->paginate(
             $repository -> findAll(),
             $request->query->getInt('page', 1), 
-            5
+            6
         );
         
         return $this->render('user/read.html.twig', ['users' => $users]);
