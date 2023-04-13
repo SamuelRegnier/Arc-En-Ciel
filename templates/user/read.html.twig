@@ -12,7 +12,7 @@
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-center">
-                            <a href="{{ path('user_select_id', { id: user.id }) }}"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
+                            <a href="{{ path('user_select_id', { id: user.id }) }}" class="stretched-link"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
                         </div>
                         <p class="card-text d-flex justify-content-center">{{user.roles[0]}}</p>
                     </div>
