@@ -21,6 +21,11 @@ class UserController extends AbstractController
       Request $request,
       ): Response
     {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         $users = $paginator->paginate(
             $repository -> findAll(),
             $request->query->getInt('page', 1), 
@@ -35,6 +40,11 @@ class UserController extends AbstractController
      int $id
       ): Response
     {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         $user =  $repository ->findOneBy(['id' => $id]);
         
         return $this->render('user/select.html.twig', ['user' => $user]);
@@ -46,6 +56,11 @@ class UserController extends AbstractController
     EntityManagerInterface $manager
     ): Response
     {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -78,6 +93,11 @@ class UserController extends AbstractController
     EntityManagerInterface $manager
     ): Response
     {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);
@@ -98,6 +118,11 @@ class UserController extends AbstractController
     EntityManagerInterface $manager
     ): Response
     {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
        $manager ->remove($user);
        $manager ->flush();
 
