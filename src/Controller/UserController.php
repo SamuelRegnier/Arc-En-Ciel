@@ -123,7 +123,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if($this->getUser()->getRoles() != 'Administrateur'){
+        if(!$this->getUser()->getRoles("Administrateur")){
             return $this->redirectToRoute('app_home');
         }
 
