@@ -117,10 +117,14 @@ class UserController extends AbstractController
     User $user,
     EntityManagerInterface $manager
     ): Response
-    {
+    {  
 
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
+        }
+
+        if($this->getUser()->getRoles() != 'Administrateur'){
+            return $this->redirectToRoute('app_home');
         }
 
        $manager ->remove($user);
