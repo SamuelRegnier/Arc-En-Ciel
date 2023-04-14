@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Repository\UserRepository;
 Use Knp\Component\Pager\PaginatorInterface;
 Use Doctrine\ORM\EntityManagerInterface;
@@ -41,6 +42,7 @@ class UserController extends AbstractController
 
     #[Route('/user/new', name: 'user_create')]
     public function create(Request $request,
+    UserPasswordHasherInterface $passwordHasher,
     EntityManagerInterface $manager
     ): Response
     {
@@ -49,11 +51,20 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($user);
+            if($form->get('password')->getData() == $form->get('confirmationPassword')->getData()) {
+                $user->setPassword(
+                    $passwordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('app_home');
         }
+        $this->addFlash('danger', 'Erreur lors de la confirmation du mot de passe!');
+        return $this->redirectToRoute('user_create');
+    }
 
         return $this->render('user/create.html.twig', [
             'form' => $form->createView(),
