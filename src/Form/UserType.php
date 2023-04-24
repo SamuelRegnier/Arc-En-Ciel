@@ -93,10 +93,10 @@ class UserType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'choices' => [
-                    'Administrateur' => 'Administrateur',
-                    'Enseignant' => 'Enseignant',
-                    'Bénévole' => 'Bénévole',
-                    'Parent' => 'Parent',
+                    'Administrateur' => 'ROLE_ADMIN',
+                    'Enseignant' => 'ROLE_ENSEIGNANT',
+                    'Bénévole' => 'ROLE_BENEVOLE',
+                    'Parent' => 'ROLE_PARENT',
                 ],
                     'label' => 'Role'
                 ]

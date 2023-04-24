@@ -123,8 +123,9 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if(!$this->getUser()->getRoles("Administrateur")){
-            return $this->redirectToRoute('app_home');
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('user_select');
         }
 
        $manager ->remove($user);
