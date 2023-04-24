@@ -1,46 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
 <div class="container text-center d-flex justify-content-around">
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        {% endif %}
 
-<h1 class="h3 mb-3 font-weight-normal" id="titreLogin">Connectez-vous</h1>
+        <h1 class="h3 mb-3 font-weight-normal" id="titreLogin">Connectez-vous</h1>
 
                 <div class="row g-3 align-items-center">
-                    <div class="col-4">
-                        <label for="inputEmail">Email</label>
+                    <div class="col-5">
+                        <label for="inputEmail">Email :</label>
                     </div>
-                    <div class="col-8">
+                    <div class="col-7">
                         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
                     </div>
                 </div>
             <br>
                 <div class="row g-3 align-items-center">
-                    <div class="col-4">
-                        <label for="inputPassword">Mot de passe</label>
+                    <div class="col-5">
+                        <label for="inputPassword">Mot de passe :</label>
                     </div>
-                    <div class="col-8">
+                    <div class="col-7">
                         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
                     </div>
                 </div>
                     <input type="hidden" name="_csrf_token"
                         value="{{ csrf_token('authenticate') }}">
-                <br>
-                
-            <button class="btn btn-lg btn-primary" id="buttonLogin" type="submit">
-                Connexion
-            </button>
-</form>
+            <br>
+        <button class="btn btn-lg btn-primary" id="buttonLogin" type="submit">
+            Connexion
+        </button>
+    </form>
 </div>
 {% endblock %}
