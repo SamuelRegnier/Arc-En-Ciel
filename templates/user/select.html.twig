@@ -5,18 +5,29 @@
 {% block body %}
     <div class="container mt-4">
         <h1 class="d-flex justify-content-center">Fiche profil {{user.lastName }} {{user.firstName}}</h1>
-            <div>
-                <img style="max-width: 50%;" src="{{ vich_uploader_asset(user, 'imageFile') }}">
+        <div class="row mt-3">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-img">
+                        <img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}">
+                    </div>
+                </div>
             </div>
-            <div>
-                <p>{{user.lastName}}</p>
-                <p>{{user.firstName}}</p>
-                <p>{{user.phone}}</p>
-                <p>{{user.email}}</p>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <p>{{user.lastName}}</p>
+                        <p>{{user.firstName}}</p>
+                        <p>{{user.phone}}</p>
+                        <p>{{user.email}}</p>
+                    </div>
+                </div>
             </div>
-            <div>
-                <a href="{{ path('user_update', { id: user.id }) }}"><button>Modifier profil</button></a>
-                <a href="{{ path('user_delete', { id: user.id }) }}"><button>Supprimer profil</button></a>
-            </div>
+        </div>
+        <div class="d-flex justify-content-center mt-3">
+            <a href="{{ path('user_update', { id: user.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
+            <a href="{{ path('user_delete', { id: user.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
+            <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
+        </div>
     </div>
 {% endblock %}

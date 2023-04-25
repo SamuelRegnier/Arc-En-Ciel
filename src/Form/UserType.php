@@ -83,7 +83,7 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'formFile',
                 ],
-                    'label' => 'Photo'
+                    'label' => 'Photo',
                 ],
                 )
             ->add('roles', ChoiceType::class,[
@@ -100,13 +100,6 @@ class UserType extends AbstractType
                 ],
                     'label' => 'Role'
                 ]
-                )
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'badge bg-primary'
-                    ],
-                    'label' => 'Créer profil'
-                ],
                 )
         ;
         ;
