@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs Sarments{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+    <h1 class="d-flex justify-content-center mb-3">Classes école Sarments</h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
+            {% for classroom in classrooms %}
+                <div class="card text-white bg-primary mb-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
+                    <div class="card-header d-flex justify-content-center">{{classroom.name}}
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ path('classroom_select_id', { id: classroom.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(classroom, 'imageFile') }}"></a>
+                        </div>
+                        <p class="card-text d-flex justify-content-center">{{classroom.year}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    <div>
+        <a href="{{ path('classroom_create') }}"><button>Créer classe</button></a>
+    </div>
+    <div class="navigation d-flex justify-content-center">
+        {{ knp_pagination_render(classrooms) }}
+    </div>
+</div>
+
+{% endblock %}
