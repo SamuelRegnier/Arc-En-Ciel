@@ -75,7 +75,7 @@ class UserController extends AbstractController
                 );
             $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('user_select');
         }
         $this->addFlash('danger', 'Erreur lors de la confirmation du mot de passe!');
         return $this->redirectToRoute('user_create');
