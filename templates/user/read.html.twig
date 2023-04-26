@@ -19,8 +19,8 @@
                 </div>
             {% endfor %}
         </div>
-    <div>
-        <a href="{{ path('user_create') }}"><button>Créer profil</button></a>
+    <div class="d-flex justify-content-center mb-3">
+        <a href="{{ path('user_create') }}"><button type="button" class="btn btn-outline-primary btn-lg">Créer profil</button></a>
     </div>
     <div class="navigation d-flex justify-content-center">
         {{ knp_pagination_render(users) }}

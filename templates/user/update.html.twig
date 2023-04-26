@@ -6,7 +6,93 @@
     <div class="container mt-4">
         <h1 class="d-flex justify-content-center">Modification Utilisateur</h1>
         {{form_start(form)}}
-            {{form_widget(form)}}
+            <div class="row">
+                <div class="col-6">
+                    <div>
+                        <div class="card-img" style="max-width: 50%;">
+                            <p>{{ form_widget(form.imageFile) }}</p>
+                        </div>
+                    </div>    
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.lastName) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.lastName) }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.firstName) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.firstName) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.email) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.email) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.phone) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.phone) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.adress) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.adress) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.isActive) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.isActive) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.password) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.password) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.confirmationPassword) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.confirmationPassword) }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.roles) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.roles) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit" class="btn btn-outline-success btn-lg mx-1" value="Enregistrer">
+                <a href="{{ path('user_select') }}"><input type="button" class="btn btn-outline-info btn-lg mx-1" value="Annuler"></a>
+            </div>
         {{form_end(form)}}
     </div>
 {% endblock %}
