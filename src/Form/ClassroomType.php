@@ -3,12 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Classroom;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\UserRepository;
 
 class ClassroomType extends AbstractType
 {
@@ -35,6 +38,14 @@ class ClassroomType extends AbstractType
                     'class' => 'formFile',
                 ],
                     'label' => 'Photo'
+                ],
+                )
+            ->add('user',EntityType::class,[
+                'class' => User::class,
+                'choice_label' => function($user, $key, $index) {
+                    return $user->getlastName() . ' ' . $user->getfirstName();
+                },
+                'label' => 'Enseignant : ',
                 ],
                 )
             ->add('submit', SubmitType::class, [
