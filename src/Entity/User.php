@@ -66,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(max: 255 ,maxMessage:'Le mot de passe ne doit pas dépasser 255 caracères.')]
     private ?string $password = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Classroom $classroom = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -230,5 +233,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($classroom === null && $this->classroom !== null) {
+            $this->classroom->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($classroom !== null && $classroom->getUser() !== $this) {
+            $classroom->setUser($this);
+        }
+
+        $this->classroom = $classroom;
+
+        return $this;
     }
 }
