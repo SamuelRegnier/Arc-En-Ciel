@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification Elève{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="d-flex justify-content-center">Modification Elève</h1>
+        {{form_start(form)}}
+            <div class="row">
+                <div class="col-6">
+                    <div>
+                        <div class="card-img" style="max-width: 50%;">
+                            <p>{{ form_widget(form.imageFile) }}</p>
+                        </div>
+                    </div>    
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.lastName) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.lastName) }}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.firstName) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.firstName) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.birthday) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.birthday) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.pai) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.pai) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.descriptionPai) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.descriptionPai) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.allergy) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.allergy) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.descriptionAllergy) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.descriptionAllergy) }}</p>
+                        </div>
+                    </div>    
+                    <div class="row">
+                        <div class="col-6 text-right mt-2">
+                            <p>{{ form_label(form.outdoorGlasses) }}</p>
+                        </div>
+                        <div class="col-6">
+                            <p>{{ form_widget(form.outdoorGlasses) }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit" class="btn btn-outline-success btn-lg mx-1" value="Enregistrer">
+                <a href="{{ path('student_select') }}"><input type="button" class="btn btn-outline-info btn-lg mx-1" value="Annuler"></a>
+            </div>
+        {{form_end(form)}}
+    </div>
+{% endblock %}

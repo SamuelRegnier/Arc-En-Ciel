@@ -7,7 +7,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
+#[Vich\Uploadable]
 class Student
 {
     #[ORM\Id]
@@ -25,9 +29,9 @@ class Student
     #[Assert\Length(max: 30 ,maxMessage:'Le prénom ne doit pas dépasser 30 caracères.')]
     private ?string $firstName = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(length: 30, nullable: true)]
     #[Assert\NotBlank(message:'Merci d\'entrer un date')]
-    private ?\DateTimeInterface $birthday = null;
+    private ?string $birthday = null;
 
     #[ORM\Column(length: 30, nullable: true)]
     #[Assert\Length(max: 30 ,maxMessage:'Le PAI ne doit pas dépasser 30 caracères.')]
@@ -45,11 +49,14 @@ class Student
     #[Assert\Length(max: 1000 ,maxMessage:'La description des allergies ne doit pas dépasser 1000 caracères.')]
     private ?string $descriptionAllergy = null;
 
-    #[ORM\Column]
-    private ?bool $outdoorGlasses = null;
+    #[ORM\Column(length: 30, nullable: true)]
+    private ?string $outdoorGlasses = null;
 
-    #[ORM\Column(type: Types::BLOB, nullable: true)]
-    private $picture = null;
+    #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
 
     public function getId(): ?int
     {
@@ -152,15 +159,38 @@ class Student
         return $this;
     }
 
-    public function getPicture()
+   /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->picture;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
     }
 
-    public function setPicture($picture): self
+    public function getImageFile(): ?File
     {
-        $this->picture = $picture;
+        return $this->imageFile;
+    }
 
-        return $this;
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 }
