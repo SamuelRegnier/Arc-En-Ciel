@@ -87,12 +87,12 @@ class Student
         return $this;
     }
 
-    public function getBirthday(): ?\DateTimeInterface
+    public function getBirthday(): ?string
     {
         return $this->birthday;
     }
 
-    public function setBirthday(\DateTimeInterface $birthday): self
+    public function setBirthday(string $birthday): self
     {
         $this->birthday = $birthday;
 
@@ -147,12 +147,12 @@ class Student
         return $this;
     }
 
-    public function isOutdoorGlasses(): ?bool
+    public function isOutdoorGlasses(): ?string
     {
         return $this->outdoorGlasses;
     }
 
-    public function setOutdoorGlasses(bool $outdoorGlasses): self
+    public function setOutdoorGlasses(string $outdoorGlasses): self
     {
         $this->outdoorGlasses = $outdoorGlasses;
 

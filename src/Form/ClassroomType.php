@@ -48,13 +48,6 @@ class ClassroomType extends AbstractType
                 'label' => 'Enseignant : ',
                 ],
                 )
-            ->add('submit', SubmitType::class, [
-                'attr' => [
-                    'class' => 'badge bg-primary'
-                    ],
-                    'label' => 'Créer classe'
-                ],
-                )
         ;
     }
 
