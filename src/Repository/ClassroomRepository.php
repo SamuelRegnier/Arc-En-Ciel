@@ -43,7 +43,7 @@ class ClassroomRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('classroom')
             ->join('classroom.user', 'user')
-            ->andWhere('user.lastName = :value')
+            ->andWhere('user.id = :value')
             ->setParameter('value', $enseignant)
             ->getQuery()
             ->getResult()
