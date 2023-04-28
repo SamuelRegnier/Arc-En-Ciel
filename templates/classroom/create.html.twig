@@ -3,10 +3,45 @@
 {% block title %}Création Classe{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <h1 class="d-flex justify-content-center">Création classe</h1>
+    <div class="container">
+        <h1 class="d-flex justify-content-center my-4">Création classe</h1>
         {{form_start(form)}}
-            {{form_widget(form)}}
+            <div class="row">
+                <div class="col-6 text-right mt-2">
+                    <p>{{form_label(form.name)}}</p>
+                </div>
+                <div class="col-6">
+                    <p>{{form_widget(form.name)}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-right mt-2">
+                    <p>{{form_label(form.year)}}</p>
+                </div>
+                <div class="col-6">
+                    <p>{{form_widget(form.year)}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-right mt-3">
+                    <p>{{form_label(form.imageFile)}}</p>
+                </div>
+                <div class="col-6">
+                    <p>{{form_widget(form.imageFile)}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 text-right mt-2">
+                    <p>{{form_label(form.user)}}</p>
+                </div>
+                <div class="col-6">
+                    <p>{{form_widget(form.user)}}</p>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <input type="submit" class="btn btn-outline-success btn-lg mx-1" value="Enregistrer">
+                <a href="{{ path('classroom_select') }}"><input type="button" class="btn btn-outline-info btn-lg mx-1" value="Annuler"></a>
+            </div>
         {{form_end(form)}}
     </div>
 {% endblock %}

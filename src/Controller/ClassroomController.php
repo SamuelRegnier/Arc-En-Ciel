@@ -32,7 +32,7 @@ class ClassroomController extends AbstractController
         if($request->request->get('enseignant')){
             $enseignant = $request->request->get('enseignant');
             $classrooms = $paginator->paginate(
-                $classroom = $classroomRepository -> findByExampleField($enseignant),
+                $classroom = $classroomRepository -> findByTeacher($enseignant),
                 $request->query->getInt('page', 1), 
                 6
             );
