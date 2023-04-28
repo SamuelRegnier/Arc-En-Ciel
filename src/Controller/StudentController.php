@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\StudentRepository;
+use App\Repository\ClassroomRepository;
 Use Knp\Component\Pager\PaginatorInterface;
 Use Doctrine\ORM\EntityManagerInterface;
 Use App\Entity\Student;
@@ -15,7 +16,8 @@ Use App\Form\StudentType;
 class StudentController extends AbstractController
 {
     #[Route('/student/select', name: 'student_select')]
-    public function select(StudentRepository $repository,
+    public function select(StudentRepository $studentRepository,
+     ClassroomRepository $classroomRepository,
      PaginatorInterface $paginator,
       Request $request,
       ): Response
@@ -25,13 +27,32 @@ class StudentController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $students = $paginator->paginate(
-            $repository -> findAll(),
-            $request->query->getInt('page', 1), 
-            6
-        );
-        
-        return $this->render('student/read.html.twig', ['students' => $students]);
+        $classrooms = $classroomRepository -> findAll();
+
+        if($request->request->get('classe')){
+            $classe = $request->request->get('classe');
+            $students = $paginator->paginate(
+                $student = $studentRepository -> findByClassroom($classe),
+                $request->query->getInt('page', 1), 
+                6
+            );
+            
+
+            return $this->render('student/read.html.twig', [
+                'classrooms' => $classrooms,
+                'students' => $students,
+        ]);
+        } else {
+            $students = $paginator->paginate(
+                $student = $studentRepository -> findAll(),
+                $request->query->getInt('page', 1), 
+                6
+            );
+            return $this->render('student/read.html.twig', [
+                'classrooms' => $classrooms,
+                'students' => $students,
+        ]);
+        }
     }
 
     #[Route('/student/select/{id}', name: 'student_select_id')]

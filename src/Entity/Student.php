@@ -58,6 +58,9 @@ class Student
     #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
 
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    private ?Classroom $classroom = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -192,5 +195,17 @@ class Student
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
+
+        return $this;
     }
 }

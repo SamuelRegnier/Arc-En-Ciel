@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Student;
+use App\Entity\Classroom;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class StudentType extends AbstractType
 {
@@ -44,16 +46,18 @@ class StudentType extends AbstractType
             ->add('pai', TextType::class,[
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'PAI'
+                    'placeholder' => 'PAI',
                 ],
-                'label' => 'PAI'
+                'label' => 'PAI',
+                'required' => false
                 ])
             ->add('descriptionPai', TextareaType::class,[
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Description PAI'
                 ],
-                    'label' => 'Description PAI'
+                    'label' => 'Description PAI',
+                    'required' => false
                 ],
                 )
             ->add('allergy', TextType::class,[
@@ -61,14 +65,16 @@ class StudentType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Allergies'
                 ],
-                'label' => 'Allergies'
+                'label' => 'Allergies',
+                'required' => false
                 ])
             ->add('descriptionAllergy', TextareaType::class,[
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Description allergies'
                 ],
-                    'label' => 'Description allergies'
+                    'label' => 'Description allergies',
+                    'required' => false
                 ],
                 )
             ->add('outdoorGlasses', TextType::class,[
@@ -83,6 +89,14 @@ class StudentType extends AbstractType
                     'class' => 'formFile',
                 ],
                     'label' => 'Photo',
+                ],
+                )
+            ->add('classroom',EntityType::class,[
+                'class' => Classroom::class,
+                'choice_label' => function($classroom, $key, $index) {
+                    return $classroom->getName() . ' ' . $classroom->getYear();
+                },
+                'label' => 'Classe : ',
                 ],
                 )
         ;

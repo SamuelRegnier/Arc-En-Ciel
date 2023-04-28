@@ -18,6 +18,9 @@
                         <div class="card-body">
                                 <p>{{classroom.name}}</p>
                                 <p>{{classroom.year}}</p>
+                                {% for student in classroom.students %}
+                                    <p>{{student.lastName}} {{student.firstName}}</p>
+                                {% endfor %}
                         </div>
                     </div>
                 </div>
