@@ -46,16 +46,18 @@ class StudentType extends AbstractType
             ->add('pai', TextType::class,[
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'PAI'
+                    'placeholder' => 'PAI',
                 ],
-                'label' => 'PAI'
+                'label' => 'PAI',
+                'required' => false
                 ])
             ->add('descriptionPai', TextareaType::class,[
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Description PAI'
                 ],
-                    'label' => 'Description PAI'
+                    'label' => 'Description PAI',
+                    'required' => false
                 ],
                 )
             ->add('allergy', TextType::class,[
@@ -63,14 +65,16 @@ class StudentType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Allergies'
                 ],
-                'label' => 'Allergies'
+                'label' => 'Allergies',
+                'required' => false
                 ])
             ->add('descriptionAllergy', TextareaType::class,[
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Description allergies'
                 ],
-                    'label' => 'Description allergies'
+                    'label' => 'Description allergies',
+                    'required' => false
                 ],
                 )
             ->add('outdoorGlasses', TextType::class,[
@@ -89,7 +93,9 @@ class StudentType extends AbstractType
                 )
             ->add('classroom',EntityType::class,[
                 'class' => Classroom::class,
-                'choice_label' => 'name',
+                'choice_label' => function($classroom, $key, $index) {
+                    return $classroom->getName() . ' ' . $classroom->getYear();
+                },
                 'label' => 'Classe : ',
                 ],
                 )

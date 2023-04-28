@@ -39,7 +39,7 @@ class ClassroomRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByExampleField($enseignant): array
+    public function findByTeacher($enseignant): array
     {
         return $this->createQueryBuilder('classroom')
             ->join('classroom.user', 'user')
