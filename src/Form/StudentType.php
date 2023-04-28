@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Student;
 use App\Entity\Classroom;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -97,6 +98,14 @@ class StudentType extends AbstractType
                     return $classroom->getName() . ' ' . $classroom->getYear();
                 },
                 'label' => 'Classe : ',
+                ],
+                )
+            ->add('users',EntityType::class,[
+                'class' => User::class,
+                'choice_label' => function($users, $key, $index) {
+                    return $users->getlastName() . ' ' . $users->getfirstName();
+                },
+                'label' => 'Parents : ',
                 ],
                 )
         ;
