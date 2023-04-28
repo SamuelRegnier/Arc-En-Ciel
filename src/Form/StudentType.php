@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Student;
+use App\Entity\Classroom;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -13,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class StudentType extends AbstractType
 {
@@ -83,6 +85,12 @@ class StudentType extends AbstractType
                     'class' => 'formFile',
                 ],
                     'label' => 'Photo',
+                ],
+                )
+            ->add('classroom',EntityType::class,[
+                'class' => Classroom::class,
+                'choice_label' => 'name',
+                'label' => 'Classe : ',
                 ],
                 )
         ;
