@@ -24,10 +24,8 @@
                         <p>{{student.allergy}}</p>
                         <p>{{student.descriptionAllergy}}</p>
                         <p>{{student.outdoorGlasses}}</p>
-                        {% for parent in student %}
-                            {% for info in parents.elements %}
-                                <p>{{info.lastName}} {{info.firstName}}</p>
-                            {% endfor %}
+                        {% for user in users %}
+                            <p>{{user.lastName}} {{user.firstName}}</p>
                         {% endfor %}
                     </div>
                 </div>

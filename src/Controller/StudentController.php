@@ -64,11 +64,13 @@ class StudentController extends AbstractController
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
         }
-
+        $users = array();
         $student =  $repository ->findOneBy(['id' => $id]);
-        $users = $student->getUsers();
-        dd($users);
-        return $this->render('student/select.html.twig', ['student' => $student]);
+        foreach($student->getUsers() as $user){
+            $users[] = $user;
+        }
+        //dd($users);
+        return $this->render('student/select.html.twig', ['student' => $student, 'users' => $users]);
     }
 
     #[Route('/student/new', name: 'student_create')]
