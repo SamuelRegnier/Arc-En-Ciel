@@ -14,12 +14,26 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p>{{user.lastName}}</p>
-                        <p>{{user.firstName}}</p>
-                        <p>{{user.phone}}</p>
-                        <p>{{user.email}}</p>
+                <div>
+                    <div>
+                        <p class="border border-primary pl-2">Nom : {{user.lastName}}</p>
+                        <p class="border border-secondary pl-2">Prénom : {{user.firstName}}</p>
+                        <p class="border border-success pl-2">Téléphone : {{user.phone}}</p>
+                        <p class="border border-danger pl-2">Email : {{user.email}}</p>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Enfants</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {# {% for user in users %}
+                                    <tr> 
+                                        <td><a href="{{ path('user_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
+                                    </tr>
+                                 {% endfor %} #}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

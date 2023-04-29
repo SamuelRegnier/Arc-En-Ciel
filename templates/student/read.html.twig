@@ -12,7 +12,7 @@
                     <select name="classe" id="classe">
                         <option value="selectDeBase" disabled selected>Selectionner une classe</option>
                         {% for classroom in classrooms %}
-                        <option value="{{ classroom.id }}">{{ classroom.name }}</option>
+                            <option value="{{ classroom.id }}">{{ classroom.name }}</option>
                         {% endfor %}
                     </select>
                 </div>

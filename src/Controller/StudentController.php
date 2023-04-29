@@ -116,11 +116,22 @@ class StudentController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        
+
         $form = $this->createForm(StudentType::class, $student);
+
+        foreach($student->getUsers() as $user){
+            $student->removeUser($user);
+        }
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            //dd($student);
+            $users = $form->get('users')->getdata();
+            foreach ($users as $user) {
+                $student->addUser($user);
+                //dd($student);
+            }
+            //dd($users);
             $manager->persist($student);
             $manager->flush();
             return $this->redirectToRoute('student_select');

@@ -4,10 +4,10 @@
 
 {% block body %}
 <div class="container mt-4">
-    <h1 class="d-flex justify-content-center mb-3">Classes école Sarments</h1>
+    <h1 class="d-flex justify-content-center my-3">Classes école Sarments</h1>
     <form action="{{ path('classroom_select') }}" method="post">
-        <div>
-            <div>
+        <div class="d-flex justify-content-center my-3">
+            <div class="mx-1">
                 <label for="enseignant">Enseignant : </label>
                 <select name="enseignant" id="enseignant">
                     <option value="selectDeBase" disabled selected>Selectionner un enseignant</option>
@@ -23,7 +23,7 @@
     </form>
     <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
         {% for classroom in classrooms %}
-            <div class="card text-white bg-primary mb-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
+            <div class="card text-white bg-primary my-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
                 <div class="card-header d-flex justify-content-center">{{classroom.name}}
                 </div>
                 <div class="card-body">
@@ -35,7 +35,7 @@
             </div>
         {% endfor %}
     </div>
-    <div class="d-flex justify-content-center mb-3">
+    <div class="d-flex justify-content-center my-3">
         <a href="{{ path('classroom_create') }}"><button type="button" class="btn btn-outline-primary btn-lg">Créer classe</button></a>
     </div>
     <div class="navigation d-flex justify-content-center">
