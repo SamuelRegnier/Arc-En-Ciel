@@ -18,12 +18,17 @@
                     <div class="card-body">
                         <p>{{student.lastName}}</p>
                         <p>{{student.firstName}}</p>
-                        <p>{{student.birthday|date('d-m-Y')}}</p>
+                        <p>{{student.birthday}}</p>
                         <p>{{student.pai}}</p>
                         <p>{{student.descriptionPai}}</p>
                         <p>{{student.allergy}}</p>
                         <p>{{student.descriptionAllergy}}</p>
                         <p>{{student.outdoorGlasses}}</p>
+                        {% for parent in student %}
+                            {% for info in parents.elements %}
+                                <p>{{info.lastName}} {{info.firstName}}</p>
+                            {% endfor %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>

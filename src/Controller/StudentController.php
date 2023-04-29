@@ -66,7 +66,8 @@ class StudentController extends AbstractController
         }
 
         $student =  $repository ->findOneBy(['id' => $id]);
-        
+        $users = $student->getUsers();
+        dd($users);
         return $this->render('student/select.html.twig', ['student' => $student]);
     }
 
@@ -85,6 +86,12 @@ class StudentController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $users = $form->get('users')->getdata();
+            foreach ($users as $user) {
+                $student->addUser($user);
+                //dd($student);
+            }
+            //dd($users);
             $manager->persist($student);
             $manager->flush();
             return $this->redirectToRoute('student_select');
@@ -111,9 +118,10 @@ class StudentController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($user);
+            //dd($student);
+            $manager->persist($student);
             $manager->flush();
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('student_select');
         }
 
         return $this->render('student/update.html.twig', [
