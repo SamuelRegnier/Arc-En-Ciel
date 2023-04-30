@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Student;
 use App\Entity\Classroom;
 use App\Entity\User;
+use App\Entity\Level;
 use App\Form\UserListType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -101,6 +102,13 @@ class StudentType extends AbstractType
                 },
                 'label' => 'Classe : ',
                 'placeholder' => 'Selectionner la classe',
+                ],
+                )
+            ->add('level',EntityType::class,[
+                'class' => Level::class,
+                'choice_label' => 'name',
+                'label' => 'Niveau : ',
+                'placeholder' => 'Selectionner le niveau',
                 ],
                 )
             ->add('users',EntityType::class,[
