@@ -110,7 +110,7 @@ class StudentType extends AbstractType
                 },
                 'label' => 'Parents : ',
                 'mapped' => false,
-                'expanded' => true,
+                'expanded' => false,
                 'multiple' => true,
                 'placeholder' => 'Selectionner le ou les parents',
                 ],
