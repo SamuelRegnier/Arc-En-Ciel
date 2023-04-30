@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\StudentRepository;
 use App\Repository\ClassroomRepository;
+use App\Repository\LevelRepository;
 Use Knp\Component\Pager\PaginatorInterface;
 Use Doctrine\ORM\EntityManagerInterface;
 Use App\Entity\Student;
@@ -18,6 +19,7 @@ class StudentController extends AbstractController
     #[Route('/student/select', name: 'student_select')]
     public function select(StudentRepository $studentRepository,
      ClassroomRepository $classroomRepository,
+     LevelRepository $levelRepository,
      PaginatorInterface $paginator,
       Request $request,
       ): Response
@@ -28,6 +30,7 @@ class StudentController extends AbstractController
         }
 
         $classrooms = $classroomRepository -> findAll();
+        $levels = $levelRepository -> findAll();
 
         if($request->request->get('classe')){
             $classe = $request->request->get('classe');
@@ -42,6 +45,19 @@ class StudentController extends AbstractController
                 'classrooms' => $classrooms,
                 'students' => $students,
         ]);
+        } elseif ($request->request->get('level')){
+            $level = $request->request->get('level');
+            $students = $paginator->paginate(
+                $student = $studentRepository -> findByLevel($level),
+                $request->query->getInt('page', 1), 
+                6
+            );
+            
+
+            return $this->render('student/read.html.twig', [
+                'levels' => $levels,
+                'students' => $students,
+        ]);
         } else {
             $students = $paginator->paginate(
                 $student = $studentRepository -> findAll(),
@@ -51,6 +67,7 @@ class StudentController extends AbstractController
             return $this->render('student/read.html.twig', [
                 'classrooms' => $classrooms,
                 'students' => $students,
+                'levels' => $levels,
         ]);
         }
     }

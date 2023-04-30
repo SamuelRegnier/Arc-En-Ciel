@@ -21,6 +21,22 @@
                 </div>
             </div>
         </form>
+        <form action="{{ path('student_select') }}" method="post">
+            <div class="d-flex justify-content-center mb-3">
+                <div class="mx-1">
+                    <label for="niveau">Niveau : </label>
+                    <select name="niveau" id="niveau">
+                        <option value="selectDeBase" disabled selected>Selectionner un niveau</option>
+                        {% for level in levels %}
+                            <option value="{{ level.id }}">{{ level.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="Rechercher" class="bouton">
+                </div>
+            </div>
+        </form>
         <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
             {% for student in students %}
                 <div class="card text-white bg-primary mb-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
