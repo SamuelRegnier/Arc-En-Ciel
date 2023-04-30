@@ -64,12 +64,17 @@ class StudentController extends AbstractController
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
         }
+
+        // On crée un nouveau tableau pour les parents
         $users = array();
+
         $student =  $repository ->findOneBy(['id' => $id]);
+
+        // On récupère les parents présents dans la liste de parents de l'élève et on les ajoute dans le nouveau tableau
         foreach($student->getUsers() as $user){
             $users[] = $user;
         }
-        //dd($users);
+        
         return $this->render('student/select.html.twig', ['student' => $student, 'users' => $users]);
     }
 
@@ -88,12 +93,15 @@ class StudentController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // On récupère la selection de parents du questionnaire
             $users = $form->get('users')->getdata();
+
+            // On ajoute chaque parent dans la liste de parents de l'élève via la méthode addUser
             foreach ($users as $user) {
                 $student->addUser($user);
-                //dd($student);
             }
-            //dd($users);
+
             $manager->persist($student);
             $manager->flush();
             return $this->redirectToRoute('student_select');
@@ -116,22 +124,24 @@ class StudentController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        
-
         $form = $this->createForm(StudentType::class, $student);
 
+        // On supprime tous les parents présents dans la liste de l'enfant
         foreach($student->getUsers() as $user){
             $student->removeUser($user);
         }
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // On récupère la selection de parents du questionnaire
             $users = $form->get('users')->getdata();
+
+            // On ajoute chaque parent dans la liste de parents de l'élève via la méthode addUser
             foreach ($users as $user) {
                 $student->addUser($user);
-                //dd($student);
             }
-            //dd($users);
+
             $manager->persist($student);
             $manager->flush();
             return $this->redirectToRoute('student_select');
