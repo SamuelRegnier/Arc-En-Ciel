@@ -4,8 +4,8 @@
 
 {% block body %}
     <div class="container mt-4">
-        <h1 class="d-flex justify-content-center">Fiche profil {{student.lastName }} {{student.firstName}}</h1>
-        <div class="row mt-3">
+        <h1 class="d-flex justify-content-center my-3">Fiche profil {{student.lastName }} {{student.firstName}}</h1>
+        <div class="row my-3">
             <div class="col-sm-6 mb-3 mb-sm-0">
                 <div class="card">
                     <div class="card-img">
@@ -14,21 +14,49 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p>{{student.lastName}}</p>
-                        <p>{{student.firstName}}</p>
-                        <p>{{student.birthday|date('d-m-Y')}}</p>
-                        <p>{{student.pai}}</p>
-                        <p>{{student.descriptionPai}}</p>
-                        <p>{{student.allergy}}</p>
-                        <p>{{student.descriptionAllergy}}</p>
-                        <p>{{student.outdoorGlasses}}</p>
+                <div>
+                    <div>
+                        <p class="border border-primary pl-2">Nom : {{student.lastName}}</p>
+                        <p class="border border-secondary pl-2">Prénom : {{student.firstName}}</p>
+                        <p class="border border-success pl-2">Date de naissance : {{student.birthday}}</p>
+                        {% if student.pai != null %}
+                            <p class="border border-danger pl-2">PAI : {{student.pai}}</p>
+                        {% endif %}
+                        {% if student.descriptionPAI != null %}
+                            <div class="border border-danger pl-2">
+                                <p>Description du PAI : </p>
+                                <p>{{student.descriptionPai}}</p>
+                            </div>
+                        {% endif %}
+                        {% if student.allergy != null %}
+                            <p class="border border-warning pl-2 mt-3">Allergie : {{student.allergy}}</p>
+                        {% endif %}
+                        {% if student.descriptionAllergy != null %}
+                            <div class="border border-warning pl-2">
+                                <p>Description du PAI : </p>
+                                <p>{{student.descriptionAllergy}}</p>
+                            </div>
+                        {% endif %}
+                        <p class="border border-info pl-2 mt-3">Lunettes Extérieures : {{student.outdoorGlasses}}</p>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="2">Parents</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for user in users %}
+                                    <tr> 
+                                        <td><a href="{{ path('user_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
+                                    </tr>
+                                 {% endfor %}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-center mt-3">
+        <div class="d-flex justify-content-center my-3">
             <a href="{{ path('student_update', { id: student.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
             <a href="{{ path('student_delete', { id: student.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
             <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">

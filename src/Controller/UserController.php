@@ -45,9 +45,13 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $students = array();
         $user =  $repository ->findOneBy(['id' => $id]);
+        foreach($user->getStudent() as $student){
+            $students[] = $student;
+        }
         
-        return $this->render('user/select.html.twig', ['user' => $user]);
+        return $this->render('user/select.html.twig', ['user' => $user, 'students' => $students]);
     }
 
     #[Route('/user/new', name: 'user_create')]
@@ -104,7 +108,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($user);
             $manager->flush();
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('user_select');
         }
 
         return $this->render('user/update.html.twig', [

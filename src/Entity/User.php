@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -68,6 +70,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Classroom $classroom = null;
+
+    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'users')]
+    private Collection $student;
+
+    public function __construct()
+    {
+        $this->student = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -253,6 +263,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Student>
+     */
+    public function getStudent(): Collection
+    {
+        return $this->student;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->student->contains($student)) {
+            $this->student->add($student);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        $this->student->removeElement($student);
 
         return $this;
     }
