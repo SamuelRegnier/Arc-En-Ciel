@@ -66,6 +66,9 @@ class Student
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'student')]
     private Collection $users;
 
+    #[ORM\ManyToOne(inversedBy: 'students')]
+    private ?Level $level = null;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -242,6 +245,18 @@ class Student
         if ($this->users->removeElement($user)) {
             $user->removeStudent($this);
         }
+
+        return $this;
+    }
+
+    public function getLevel(): ?Level
+    {
+        return $this->level;
+    }
+
+    public function setLevel(?Level $level): self
+    {
+        $this->level = $level;
 
         return $this;
     }
