@@ -14,7 +14,18 @@
                         <div class="d-flex justify-content-center">
                             <a href="{{ path('user_select_id', { id: user.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
                         </div>
-                        <p class="card-text d-flex justify-content-center">{{user.roles[0]}}</p>
+                        {% if user.roles[0] == "ROLE_ADMIN" %}
+                            <p class="card-text d-flex justify-content-center mt-3">Directeur</p>
+                        {% endif %}
+                        {% if user.roles[0] == "ROLE_ENSEIGNANT" %}
+                            <p class="card-text d-flex justify-content-center mt-3">Enseignant</p>
+                        {% endif %}
+                        {% if user.roles[0] == "ROLE_BENEVOLE" %}
+                            <p class="card-text d-flex justify-content-center mt-2">Bénévole</p>
+                        {% endif %}
+                        {% if user.roles[0] == "ROLE_PARENT" %}
+                            <p class="card-text d-flex justify-content-center mt-2">Parents</p>
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

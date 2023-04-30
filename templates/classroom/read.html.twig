@@ -12,7 +12,9 @@
                 <select name="enseignant" id="enseignant">
                     <option value="selectDeBase" disabled selected>Selectionner un enseignant</option>
                     {% for user in users %}
-                    <option value="{{ user.id }}">{{ user.lastName }}</option>
+                        {% if user.roles[0] == "ROLE_ENSEIGNANT" %}
+                        <option value="{{ user.id }}">{{ user.lastName }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
             </div>
