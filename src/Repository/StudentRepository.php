@@ -50,6 +50,17 @@ class StudentRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findByLevel($level): array
+    {
+        return $this->createQueryBuilder('student')
+            ->join('student.level', 'level')
+            ->andWhere('level.id = :value')
+            ->setParameter('value', $level)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Student
 //    {
 //        return $this->createQueryBuilder('s')
