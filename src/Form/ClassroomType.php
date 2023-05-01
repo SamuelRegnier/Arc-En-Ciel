@@ -37,12 +37,12 @@ class ClassroomType extends AbstractType
                 'attr' => [
                     'class' => 'formFile',
                 ],
-                    'label' => 'Photo',
-                    'download_uri' => false,
-                    'delete_label' => false,
-                    'image_uri' => true,
-                    'required' => false,
-                    //'delete' => false,
+                'label' => 'Photo',
+                'download_uri' => false,
+                'delete_label' => false,
+                'image_uri' => true,
+                'required' => false,
+                //'delete' => false,
                 ],
                 )
             ->add('user',EntityType::class,[

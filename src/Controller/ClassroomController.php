@@ -45,7 +45,6 @@ class ClassroomController extends AbstractController
         } else {
             $classrooms = $paginator->paginate(
                 $classroom = $classroomRepository -> findAll(),
-                //dd($classroom),
                 $request->query->getInt('page', 1), 
                 6
             );
@@ -57,7 +56,7 @@ class ClassroomController extends AbstractController
     }
 
     #[Route('/classroom/select/{id}', name: 'classroom_select_id')]
-    public function selectById(ClassroomRepository $repository,
+    public function selectById(ClassroomRepository $classroomRepository,
      int $id
       ): Response
     {
@@ -66,8 +65,8 @@ class ClassroomController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $classrooms =  $repository ->findOneByTeacher($id);
-        $classroom =  $repository ->findOneBy(['id' => $id]);
+        $classrooms =  $classroomRepository ->findOneByTeacher($id);
+        $classroom =  $classroomRepository ->findOneBy(['id' => $id]);
 
         //dd($classrooms, $classroom);
         
