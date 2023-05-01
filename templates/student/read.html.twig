@@ -7,7 +7,7 @@
     <h1 class="d-flex justify-content-center mb-3">Elèves école Sarments</h1>
         <form action="{{ path('student_select') }}" method="post">
             <div class="d-flex justify-content-center mb-3">
-                <div class="mx-1">
+                <div class="mx-1 mt-1">
                     <label for="classe">Classe : </label>
                     <select name="classe" id="classe">
                         <option value="selectDeBase" disabled selected>Selectionner une classe</option>
@@ -16,7 +16,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="mx-1">
+                <div class="mx-1 mt-1">
                     <label for="niveau">Niveau : </label>
                     <select name="niveau" id="niveau">
                         <option value="selectDeBase" disabled selected>Selectionner un niveau</option>
@@ -26,29 +26,13 @@
                     </select>
                 </div>
                 <div>
-                    <input type="submit" value="Rechercher" class="bouton">
+                    <input type="submit" value="Rechercher" class="btn btn-outline-info btn-sm mx-1">
                 </div>
             </div>
         </form>
-        {# <form action="{{ path('student_select') }}" method="post">
-            <div class="d-flex justify-content-center mb-3">
-                <div class="mx-1">
-                    <label for="niveau">Niveau : </label>
-                    <select name="niveau" id="niveau">
-                        <option value="selectDeBase" disabled selected>Selectionner un niveau</option>
-                        {% for level in levels %}
-                            <option value="{{ level.id }}">{{ level.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div>
-                    <input type="submit" value="Rechercher" class="bouton">
-                </div>
-            </div>
-        </form> #}
         <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
             {% for student in students %}
-                <div class="card text-white bg-primary mb-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
+                {# <div class="card text-white bg-primary mb-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
                     <div class="card-header d-flex justify-content-center">{{student.lastName}} {{ student.firstName}}
                     </div>
                     <div class="card-body">
@@ -56,6 +40,12 @@
                             <a href="{{ path('student_select_id', { id: student.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(student, 'imageFile') }}"></a>
                         </div>
                         <p class="card-text d-flex justify-content-center">{{student.classroom.name}}</p>
+                    </div>
+                </div> #}
+                <div class="card px-0 text-white bg-primary mb-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
+                    <a href="{{ path('student_select_id', { id: student.id }) }}" class="stretched-link img-fluid"><img class="card-img-top" style="max-width: 100%;" src="{{ vich_uploader_asset(student, 'imageFile') }}"></a>
+                    <div>
+                        <h5 class="card-title pl-2">{{student.lastName}} {{ student.firstName}}</h5>
                     </div>
                 </div>
             {% endfor %}
