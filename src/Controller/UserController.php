@@ -27,7 +27,7 @@ class UserController extends AbstractController
         }
 
         $users = $paginator->paginate(
-            $repository -> findAll(),
+            $repository -> findAllOrderBy(),
             $request->query->getInt('page', 1), 
             6
         );
@@ -94,6 +94,7 @@ class UserController extends AbstractController
     public function edit(
     User $user,
     Request $request,
+    UserPasswordHasherInterface $passwordHasher,
     EntityManagerInterface $manager
     ): Response
     {
@@ -106,10 +107,20 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('password')->getData() == $form->get('confirmationPassword')->getData()) {
+                $user->setPassword(
+                    $passwordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('user_select');
         }
+        $this->addFlash('danger', 'Erreur lors de la confirmation du mot de passe!');
+        return $this->redirectToRoute('user_create');
+    }
 
         return $this->render('user/update.html.twig', [
             'form' => $form->createView(),

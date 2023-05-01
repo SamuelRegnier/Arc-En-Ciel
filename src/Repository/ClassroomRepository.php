@@ -50,6 +50,17 @@ class ClassroomRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findOneByTeacher($id): array
+    {
+        return $this->createQueryBuilder('classroom')
+            ->join('classroom.user', 'user')
+            ->andWhere('classroom.id = :value')
+            ->setParameter('value', $id)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Classroom
 //    {
 //        return $this->createQueryBuilder('c')

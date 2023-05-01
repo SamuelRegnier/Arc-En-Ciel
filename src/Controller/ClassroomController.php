@@ -45,6 +45,7 @@ class ClassroomController extends AbstractController
         } else {
             $classrooms = $paginator->paginate(
                 $classroom = $classroomRepository -> findAll(),
+                //dd($classroom),
                 $request->query->getInt('page', 1), 
                 6
             );
@@ -65,7 +66,10 @@ class ClassroomController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $classrooms =  $repository ->findOneByTeacher($id);
         $classroom =  $repository ->findOneBy(['id' => $id]);
+
+        //dd($classrooms, $classroom);
         
         return $this->render('classroom/select.html.twig', ['classroom' => $classroom]);
     }
@@ -98,8 +102,10 @@ class ClassroomController extends AbstractController
     #[Route('/classroom/update/{id}', name: 'classroom_update')]
     public function edit(
     Classroom $classroom,
+    ClassroomRepository $classroomRepository,
     Request $request,
-    EntityManagerInterface $manager
+    EntityManagerInterface $manager,
+    int $id,
     ): Response
     {
 
@@ -107,10 +113,17 @@ class ClassroomController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        // $class =  $classroomRepository ->findOneBy(['id' => $id]);
+        // $classImageFile = $class->getImageFile();
+
         $form = $this->createForm(ClassroomType::class, $classroom);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($request->request->get('imageFile')){
+                $classroom->setImageFile($form->get('imageFile')->getdata());
+            }
+            //dd($classroom);
             $manager->persist($classroom);
             $manager->flush();
             return $this->redirectToRoute('classroom_select');
