@@ -93,6 +93,7 @@ class UserController extends AbstractController
     #[Route('/user/update/{id}', name: 'user_update')]
     public function edit(
     User $user,
+    UserPasswordHasherInterface $passwordHasher,
     Request $request,
     EntityManagerInterface $manager
     ): Response
@@ -106,6 +107,13 @@ class UserController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            if($form->get('password')->getData() == $form->get('confirmationPassword')->getData()) {
+                $user->setPassword(
+                    $passwordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                    );}
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('user_select');
