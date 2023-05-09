@@ -65,6 +65,11 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('user_select');
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -101,6 +106,11 @@ class UserController extends AbstractController
 
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
+        }
+
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('user_select');
         }
 
         $form = $this->createForm(UserType::class, $user);
