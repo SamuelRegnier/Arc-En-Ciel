@@ -11,6 +11,7 @@ use App\Repository\UserRepository;
 Use Knp\Component\Pager\PaginatorInterface;
 Use Doctrine\ORM\EntityManagerInterface;
 Use App\Entity\User;
+Use App\Entity\Classroom;
 Use App\Form\UserType;
 
 class UserController extends AbstractController
@@ -61,9 +62,9 @@ class UserController extends AbstractController
     ): Response
     {
 
-        //if(!$this->getUser()){
-         //   return $this->redirectToRoute('app_login');
-        //}
+        if(!$this->getUser()){
+           return $this->redirectToRoute('app_login');
+        }
 
         $isAdmin = $this->isGranted("ROLE_ADMIN");
         if (!$isAdmin){
@@ -140,6 +141,9 @@ class UserController extends AbstractController
     #[Route('/user/delete/{id}', name: 'user_delete')]
     public function delete(
     User $user,
+    Classroom $classroom,
+    UserRepository $userRepository,
+    int $id,
     EntityManagerInterface $manager
     ): Response
     {  
@@ -153,8 +157,14 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_select');
         }
 
-       $manager ->remove($user);
-       $manager ->flush();
+        $user =  $userRepository ->findOneBy(['id' => $id]);
+        if ($user->getClassroom() != null){
+            $user->getClassroom()->setUser(null);
+            //dd($user);
+        }
+
+        $manager ->remove($user);
+        $manager ->flush();
 
        return $this->redirectToRoute('user_select');
     }
