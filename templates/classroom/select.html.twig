@@ -3,57 +3,53 @@
 {% block title %}Aperçu utilisateur{% endblock %}
 
 {% block body %}
-    {# {% for classroom in classroomTab %} #}
-        <div class="container mt-4">
-            <h1 class="d-flex justify-content-center">Fiche Classe {{classroom.name }} - {{classroom.year}}</h1>
-                <div class="row mt-3">
-                    <div class="col-sm-6 mb-3 mb-sm-0">
-                        <div class="card">
-                            <div class="card-img">
-                                <img style="max-width: 100%;" src="{{ vich_uploader_asset(classroom, 'imageFile') }}">
-                            </div>
-                        </div>
+    <div class="container mt-4">
+        <h1 class="d-flex justify-content-center">Fiche Classe {{classroom.name }} - {{classroom.year}}</h1>
+        <div class="row mt-3">
+            <div class="col-sm-6 mb-3 mb-sm-0">
+                <div class="card">
+                    <div class="card-img">
+                        <img style="max-width: 100%;" src="{{ vich_uploader_asset(classroom, 'imageFile') }}">
                     </div>
-                    <div class="col-sm-6">
-                        <div>
-                            <div>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2">Enseignant</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for user in classroom.user %}
-                                            <tr> 
-                                                <td><a href="{{ path('student_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th colspan="2">Elèves</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for student in classroom.students %}
-                                            <tr> 
-                                                <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>   
-                <div class="d-flex justify-content-center mt-3">
-                    <a href="{{ path('classroom_update', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
-                <a href="{{ path('classroom_delete', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
-                <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
                 </div>
+            </div>
+            <div class="col-sm-6">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Enseignant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in classroom.user %}
+                            <tr> 
+                                <td><a href="{{ path('student_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Elèves</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in classroom.students %}
+                            <tr> 
+                                <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>   
+        <div class="d-flex justify-content-center mt-3">
+            {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                <a href="{{ path('classroom_update', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
+                <a href="{{ path('classroom_delete', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
+            {% endif %}
+            <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
         </div>
-    {# {% endfor %} #}
+    </div>
 {% endblock %}

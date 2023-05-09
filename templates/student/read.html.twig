@@ -56,7 +56,9 @@
             {% endfor %}
         </div>
     <div class="d-flex justify-content-center my-3">
-        <a href="{{ path('student_create') }}"><button type="button" class="btn btn-outline-primary btn-lg">Créer profil élève</button></a>
+        {% if app.user.roles[0] == "ROLE_ADMIN" %}
+            <a href="{{ path('student_create') }}"><button type="button" class="btn btn-outline-primary btn-lg">Créer profil élève</button></a>
+        {% endif %}
     </div>
     <div class="navigation d-flex justify-content-center">
         {{ knp_pagination_render(students) }}

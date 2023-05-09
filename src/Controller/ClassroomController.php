@@ -83,6 +83,11 @@ class ClassroomController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('classroom_select');
+        }
+
         $classroom = new Classroom();
         $form = $this->createForm(ClassroomType::class, $classroom);
 
@@ -110,6 +115,11 @@ class ClassroomController extends AbstractController
 
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
+        }
+
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('classroom_select');
         }
 
         // $class =  $classroomRepository ->findOneBy(['id' => $id]);

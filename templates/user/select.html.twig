@@ -14,33 +14,31 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div>
-                    <div>
-                        <p class="border border-primary pl-2">Nom : {{user.lastName}}</p>
-                        <p class="border border-secondary pl-2">Prénom : {{user.firstName}}</p>
-                        <p class="border border-success pl-2">Téléphone : {{user.phone}}</p>
-                        <p class="border border-danger pl-2">Email : {{user.email}}</p>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th colspan="2">Enfants</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for student in students %}
-                                    <tr> 
-                                        <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
-                                    </tr>
-                                 {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                <p class="border border-primary pl-2">Nom : {{user.lastName}}</p>
+                <p class="border border-secondary pl-2">Prénom : {{user.firstName}}</p>
+                <p class="border border-success pl-2">Téléphone : {{user.phone}}</p>
+                <p class="border border-danger pl-2">Email : {{user.email}}</p>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Enfants</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in students %}
+                            <tr> 
+                                <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-3">
-            <a href="{{ path('user_update', { id: user.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
-            <a href="{{ path('user_delete', { id: user.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
+            {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                <a href="{{ path('user_update', { id: user.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
+                <a href="{{ path('user_delete', { id: user.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
+            {% endif %}
             <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
         </div>
     </div>
