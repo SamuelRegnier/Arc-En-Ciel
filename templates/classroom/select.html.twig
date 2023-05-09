@@ -27,21 +27,21 @@
                             </tr>
                         </tbody>
                     </table>
-                    {% endfor %}
-                    {% for student in classroom.students %}
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Elèves</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                {% endfor %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Elèves</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for student in classroom.students %}
                             <tr> 
                                 <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
                             </tr>
-                        </tbody>
-                    </table>
-                {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>   
         <div class="d-flex justify-content-center mt-3">

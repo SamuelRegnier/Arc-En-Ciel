@@ -11,7 +11,6 @@ use App\Repository\UserRepository;
 Use Knp\Component\Pager\PaginatorInterface;
 Use Doctrine\ORM\EntityManagerInterface;
 Use App\Entity\User;
-Use App\Entity\Classroom;
 Use App\Form\UserType;
 
 class UserController extends AbstractController
@@ -141,7 +140,6 @@ class UserController extends AbstractController
     #[Route('/user/delete/{id}', name: 'user_delete')]
     public function delete(
     User $user,
-    Classroom $classroom,
     UserRepository $userRepository,
     int $id,
     EntityManagerInterface $manager
@@ -160,7 +158,6 @@ class UserController extends AbstractController
         $user =  $userRepository ->findOneBy(['id' => $id]);
         if ($user->getClassroom() != null){
             $user->getClassroom()->setUser(null);
-            //dd($user);
         }
 
         $manager ->remove($user);
