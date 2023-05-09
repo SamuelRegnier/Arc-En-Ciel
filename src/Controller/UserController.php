@@ -98,6 +98,7 @@ class UserController extends AbstractController
     #[Route('/user/update/{id}', name: 'user_update')]
     public function edit(
     User $user,
+    UserPasswordHasherInterface $passwordHasher,
     Request $request,
     UserPasswordHasherInterface $passwordHasher,
     EntityManagerInterface $manager
