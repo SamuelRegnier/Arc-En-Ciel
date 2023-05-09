@@ -65,6 +65,11 @@ class UserController extends AbstractController
          //   return $this->redirectToRoute('app_login');
         //}
 
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('user_select');
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -93,6 +98,7 @@ class UserController extends AbstractController
     #[Route('/user/update/{id}', name: 'user_update')]
     public function edit(
     User $user,
+    UserPasswordHasherInterface $passwordHasher,
     Request $request,
     UserPasswordHasherInterface $passwordHasher,
     EntityManagerInterface $manager
@@ -101,6 +107,11 @@ class UserController extends AbstractController
 
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
+        }
+
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('user_select');
         }
 
         $form = $this->createForm(UserType::class, $user);
