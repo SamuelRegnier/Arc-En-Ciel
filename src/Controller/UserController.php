@@ -27,7 +27,7 @@ class UserController extends AbstractController
         }
 
         $users = $paginator->paginate(
-            $repository -> findAll(),
+            $repository -> findAllOrderBy(),
             $request->query->getInt('page', 1), 
             6
         );
@@ -65,6 +65,11 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('user_select');
+        }
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -95,12 +100,18 @@ class UserController extends AbstractController
     User $user,
     UserPasswordHasherInterface $passwordHasher,
     Request $request,
+    UserPasswordHasherInterface $passwordHasher,
     EntityManagerInterface $manager
     ): Response
     {
 
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
+        }
+
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('user_select');
         }
 
         $form = $this->createForm(UserType::class, $user);
@@ -113,11 +124,14 @@ class UserController extends AbstractController
                         $user,
                         $form->get('password')->getData()
                     )
-                    );}
+                );
             $manager->persist($user);
             $manager->flush();
             return $this->redirectToRoute('user_select');
         }
+        $this->addFlash('danger', 'Erreur lors de la confirmation du mot de passe!');
+        return $this->redirectToRoute('user_create');
+    }
 
         return $this->render('user/update.html.twig', [
             'form' => $form->createView(),

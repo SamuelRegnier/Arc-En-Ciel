@@ -37,7 +37,12 @@ class ClassroomType extends AbstractType
                 'attr' => [
                     'class' => 'formFile',
                 ],
-                    'label' => 'Photo'
+                'label' => 'Photo',
+                'download_uri' => false,
+                'delete_label' => false,
+                'image_uri' => true,
+                'required' => false,
+                //'delete' => false,
                 ],
                 )
             ->add('user',EntityType::class,[
@@ -46,6 +51,8 @@ class ClassroomType extends AbstractType
                     return $user->getlastName() . ' ' . $user->getfirstName();
                 },
                 'label' => 'Enseignant : ',
+                'placeholder' => 'Selectionner l\'enseignant',
+                'required' => false,
                 ],
                 )
         ;

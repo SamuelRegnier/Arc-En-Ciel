@@ -83,7 +83,11 @@ class UserType extends AbstractType
                 'attr' => [
                     'class' => 'formFile',
                 ],
-                    'label' => 'Photo',
+                'label' => 'Photo',
+                'download_uri' => false,
+                'delete_label' => false,
+                'image_uri' => true,
+                'required' => false,
                 ],
                 )
             ->add('roles', ChoiceType::class,[
