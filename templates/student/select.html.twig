@@ -38,27 +38,29 @@
                             </div>
                         {% endif %}
                         <p class="border border-info pl-2 mt-3">Lunettes Extérieures : {{student.outdoorGlasses}}</p>
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th colspan="2">Parents</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for user in users %}
+                        <p class="border border-dark pl-2 mt-3">Classe : {{student.classroom.name}}</p>
+                        <p class="border border-dark pl-2 mt-3">Niveau : {{student.level.name}}</p>
+                        {% for user in users %}
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Parents</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     <tr> 
                                         <td><a href="{{ path('user_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
                                     </tr>
-                                 {% endfor %}
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="d-flex justify-content-center my-3">
-            <a href="{{ path('student_update', { id: student.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
-            <a href="{{ path('student_delete', { id: student.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
+            <a href="{{ path('student_update', { id: student.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier élève</button></a>
+            <a href="{{ path('student_delete', { id: student.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer élève</button></a>
             <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
         </div>
     </div>

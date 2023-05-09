@@ -38,7 +38,7 @@ class Classroom
     #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
 
-    #[ORM\OneToOne(inversedBy: 'classroom', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'classroom', cascade: ['persist'])]
     private ?User $user = null;
 
     #[ORM\OneToMany(mappedBy: 'classroom', targetEntity: Student::class)]

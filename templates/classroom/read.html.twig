@@ -4,6 +4,11 @@
 
 {% block body %}
 <div class="container mt-4">
+    {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+    {% endfor %}
     <h1 class="d-flex justify-content-center my-3">Classes école Sarments</h1>
     <form action="{{ path('classroom_select') }}" method="post">
         <div class="d-flex justify-content-center my-3">
@@ -19,22 +24,12 @@
                 </select>
             </div>
             <div>
-                <input type="submit" value="Rechercher" class="bouton">
+                <input type="submit" value="Rechercher" class="btn btn-outline-info btn-sm mx-1">
             </div>
         </div>
     </form>
     <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
         {% for classroom in classrooms %}
-            {# <div class="card text-white bg-primary my-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
-                <div class="card-header d-flex justify-content-center">{{classroom.name}}
-                </div>
-                <div class="card-body">
-                    <div class="d-flex justify-content-center">
-                        <a href="{{ path('classroom_select_id', { id: classroom.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(classroom, 'imageFile') }}"></a>
-                    </div>
-                    <p class="card-text d-flex justify-content-center">{{classroom.year}}</p>
-                </div>
-            </div> #}
             <div class="card px-0 text-white bg-primary mb-3 mx-3 justify-content-center" style="max-width: 20rem;">
                 <h5 class="text-center mt-1">{{classroom.name}}</h5>
                 <a href="{{ path('classroom_select_id', { id: classroom.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(classroom, 'imageFile') }}"></a>

@@ -61,9 +61,9 @@ class UserController extends AbstractController
     ): Response
     {
 
-        if(!$this->getUser()){
-            return $this->redirectToRoute('app_login');
-        }
+        //if(!$this->getUser()){
+         //   return $this->redirectToRoute('app_login');
+        //}
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
