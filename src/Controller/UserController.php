@@ -100,7 +100,6 @@ class UserController extends AbstractController
     User $user,
     UserPasswordHasherInterface $passwordHasher,
     Request $request,
-    UserPasswordHasherInterface $passwordHasher,
     EntityManagerInterface $manager
     ): Response
     {

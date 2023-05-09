@@ -31,6 +31,16 @@ class LevelController extends AbstractController
     EntityManagerInterface $manager
     ): Response
     {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
+        $isAdmin = $this->isGranted("ROLE_ADMIN");
+        if (!$isAdmin){
+            return $this->redirectToRoute('app_level');
+        }
+
         $level = new Level();
         $form = $this->createForm(LevelType::class, $level);
 
