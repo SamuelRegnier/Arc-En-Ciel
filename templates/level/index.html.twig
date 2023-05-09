@@ -5,20 +5,24 @@
 {% block body %}
 <div class="container mt-4">
     <h1 class="d-flex justify-content-center">Niveaux école Sarments</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th colspan="2">Niveaux</th>
-                </tr>
-            </thead>
-             <tbody>
-                {% for level in levels %}
-                    <tr> 
-                        <td>{{level.name}}</td>
+    <div class="row mt-3">
+        <div class="col-4 mb-3 offset-4">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th colspan="2">Niveaux</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for level in levels %}
+                        <tr> 
+                            <td>{{level.name}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>    
     <div class="navigation d-flex justify-content-center">
         {{ knp_pagination_render(levels) }}
     </div>
