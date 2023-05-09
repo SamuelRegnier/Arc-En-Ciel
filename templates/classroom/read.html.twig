@@ -4,6 +4,11 @@
 
 {% block body %}
 <div class="container mt-4">
+    {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+    {% endfor %}
     <h1 class="d-flex justify-content-center my-3">Classes école Sarments</h1>
     <form action="{{ path('classroom_select') }}" method="post">
         <div class="d-flex justify-content-center my-3">
@@ -19,7 +24,7 @@
                 </select>
             </div>
             <div>
-                <input type="submit" value="Rechercher" class="bouton">
+                <input type="submit" value="Rechercher" class="btn btn-outline-info btn-sm mx-1">
             </div>
         </div>
     </form>

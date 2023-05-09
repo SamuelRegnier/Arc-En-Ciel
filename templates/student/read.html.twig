@@ -32,26 +32,10 @@
         </form>
         <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
             {% for student in students %}
-                {# <div class="card text-white bg-primary mb-3 mx-3 d-flex justify-content-center" style="max-width: 20rem;">
-                    <div class="card-header d-flex justify-content-center">{{student.lastName}} {{ student.firstName}}
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-center">
-                            <a href="{{ path('student_select_id', { id: student.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(student, 'imageFile') }}"></a>
-                        </div>
-                        <p class="card-text d-flex justify-content-center">{{student.classroom.name}}</p>
-                    </div>
-                </div> #}
                 <div class="card px-0 text-white bg-primary mb-3 mx-3 justify-content-center" style="max-width: 20rem;">
-                    <a href="{{ path('student_select_id', { id: student.id }) }}" class="stretched-link img-fluid"><img class="card-img-top" style="max-width: 100%;" src="{{ vich_uploader_asset(student, 'imageFile') }}"></a>
-                    <div class="d-flex">
-                        <div class="col-7">
-                            <h5 class="card-title text-left">{{student.lastName}} {{ student.firstName}}</h5>
-                        </div>
-                        <div class="col-5">
-                            <p class="card-text text-right">{{student.classroom.name}}</p>
-                        </div>
-                    </div>
+                    <h5 class="text-center mt-1">{{student.lastName}} {{ student.firstName}}</h5>
+                        <a href="{{ path('student_select_id', { id: student.id }) }}" class="stretched-link img-fluid"><img class="card-img-top" style="max-width: 100%;" src="{{ vich_uploader_asset(student, 'imageFile') }}"></a>
+                            <p class="card-text d-flex justify-content-center">{{student.classroom.name}}</p>
                 </div>
             {% endfor %}
         </div>
