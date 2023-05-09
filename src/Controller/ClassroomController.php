@@ -12,6 +12,7 @@ Use Knp\Component\Pager\PaginatorInterface;
 Use Doctrine\ORM\EntityManagerInterface;
 Use App\Entity\Classroom;
 Use App\Form\ClassroomType;
+use Symfony\Component\HttpFoundation\Session\Flash\AutoExpireFlashBag;
 
 class ClassroomController extends AbstractController
 {
@@ -90,6 +91,7 @@ class ClassroomController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($classroom);
             $manager->flush();
+            $this->addFlash('success', 'Création de la classe réalisée avec succès!');
             return $this->redirectToRoute('classroom_select');
         }
     

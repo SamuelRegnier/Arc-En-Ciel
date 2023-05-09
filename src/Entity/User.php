@@ -68,7 +68,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\Length(max: 255 ,maxMessage:'Le mot de passe ne doit pas dépasser 255 caracères.')]
     private ?string $password = null;
 
-    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist'])]
     private ?Classroom $classroom = null;
 
     #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'users')]
