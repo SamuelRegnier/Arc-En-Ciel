@@ -18,14 +18,14 @@ class ClassroomType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('name', TextType::class, [
-            'attr' => [
-                'class' => 'form-control',
-                'placeholder' => 'Nom de la classe'
-            ],
-                'label' => 'Nom'
-            ],
-            )
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Nom de la classe'
+                ],
+                    'label' => 'Nom'
+                ],
+                )
             ->add('year', TextType::class,[
                 'attr' => [
                     'class' => 'form-control',
@@ -44,17 +44,21 @@ class ClassroomType extends AbstractType
                 'required' => false,
                 //'delete' => false,
                 ],
-                )
+                ) 
             ->add('user',EntityType::class,[
                 'class' => User::class,
-                'choice_label' => function($user, $key, $index) {
-                    return $user->getlastName() . ' ' . $user->getfirstName();
-                },
+                'choice_label' => 
+                        function($user, $key, $index) {
+                            if ($user->getClassroom() == null){
+                                return $user->getlastName() . ' ' . $user->getfirstName();
+                            }
+                        },
                 'label' => 'Enseignant : ',
                 'placeholder' => 'Selectionner l\'enseignant',
                 'required' => false,
                 ],
                 )
+            
         ;
     }
 

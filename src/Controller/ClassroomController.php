@@ -148,6 +148,8 @@ class ClassroomController extends AbstractController
     #[Route('/classroom/delete/{id}', name: 'classroom_delete')]
     public function delete(
     Classroom $classroom,
+    ClassroomRepository $classroomRepository,
+    int $id,
     EntityManagerInterface $manager
     ): Response
     {  
@@ -159,6 +161,14 @@ class ClassroomController extends AbstractController
         $isAdmin = $this->isGranted("ROLE_ADMIN");
         if (!$isAdmin){
             return $this->redirectToRoute('classroom_select');
+        }
+
+        $classroom =  $classroomRepository ->findOneBy(['id' => $id]);
+        
+        foreach ($classroom->getStudents() as $student){
+            if ($student->getClassroom()->getId() == $id){
+                $student->setClassroom(null);
+            }
         }
 
        $manager ->remove($classroom);

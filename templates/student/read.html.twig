@@ -35,7 +35,9 @@
                 <div class="card px-0 text-white bg-primary mb-3 mx-3 justify-content-center" style="max-width: 20rem;">
                     <h5 class="text-center mt-1">{{student.lastName}} {{ student.firstName}}</h5>
                         <a href="{{ path('student_select_id', { id: student.id }) }}" class="stretched-link img-fluid"><img class="card-img-top" style="max-width: 100%;" src="{{ vich_uploader_asset(student, 'imageFile') }}"></a>
+                        {% if student.classroom != null %}    
                             <p class="card-text d-flex justify-content-center">{{student.classroom.name}}</p>
+                        {% endif %} 
                 </div>
             {% endfor %}
         </div>
