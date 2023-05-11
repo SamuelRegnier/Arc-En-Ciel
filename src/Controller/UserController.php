@@ -113,6 +113,8 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_select');
         }
 
+        $user->setPassword('');
+        
         $form = $this->createForm(UserType::class, $user);
 
         $form->handleRequest($request);

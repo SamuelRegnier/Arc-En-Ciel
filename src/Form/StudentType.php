@@ -125,6 +125,7 @@ class StudentType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'placeholder' => 'Selectionner le ou les parents',
+                'required' => false,
                 ],
                 )
             // ->add('users',CollectionType::class,[
