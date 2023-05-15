@@ -28,20 +28,20 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        if($request->request->get('role')){
-            $role = $request->request->get('role');
+        if($request->request->get('search')){
+            $name = '%'.$request->request->get('search').'%';
             $users = $paginator->paginate(
-                $user = $userRepository -> findByRole($role),
+                $user = $userRepository -> findByName($name),
                 $request->query->getInt('page', 1), 
                 6
             );
             return $this->render('user/read.html.twig', ['users' => $users]);
         }
 
-        if($request->request->get('search')){
-            $name = '%'.$request->request->get('search').'%';
+        if($request->request->get('role')){
+            $role = $request->request->get('role');
             $users = $paginator->paginate(
-                $user = $userRepository -> findByName($name),
+                $user = $userRepository -> findByRole($role),
                 $request->query->getInt('page', 1), 
                 6
             );

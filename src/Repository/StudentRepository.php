@@ -75,6 +75,15 @@ class StudentRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findAllOrderBy(): array
+    {
+        return $this->createQueryBuilder('user')
+            ->addOrderBy('user.lastName', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Student
 //    {
 //        return $this->createQueryBuilder('s')
