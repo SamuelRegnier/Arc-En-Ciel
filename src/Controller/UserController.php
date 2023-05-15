@@ -159,7 +159,7 @@ class UserController extends AbstractController
                 $user->setPassword(
                     $passwordHasher->hashPassword(
                         $user,
-                        $form->get('password')->getData()
+                        $form->get('newPassword')->getData()
                     )
                 );
                 $manager->persist($user);
