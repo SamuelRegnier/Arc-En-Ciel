@@ -8,6 +8,10 @@
     <form action="{{ path('user_select') }}" method="post">
         <div class="d-flex justify-content-center my-3">
             <div class="mx-1">
+                <label for="search">Nom : </label>
+                <input type="search" id="search" name="search" placeholder="Entrer le nom">
+            </div>
+            <div class="mx-1">
                 <label for="role">Role : </label>
                 <select name="role" id="role">
                     <option value="selectDeBase" disabled selected>Selectionner un role</option>

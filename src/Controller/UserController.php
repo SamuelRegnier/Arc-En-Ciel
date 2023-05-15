@@ -35,13 +35,25 @@ class UserController extends AbstractController
                 $request->query->getInt('page', 1), 
                 6
             );
-        } else {    
+            return $this->render('user/read.html.twig', ['users' => $users]);
+        }
+
+        if($request->request->get('search')){
+            $name = '%'.$request->request->get('search').'%';
+            $users = $paginator->paginate(
+                $user = $userRepository -> findByName($name),
+                $request->query->getInt('page', 1), 
+                6
+            );
+            return $this->render('user/read.html.twig', ['users' => $users]);
+        }
+
         $users = $paginator->paginate(
             $userRepository -> findAllOrderBy(),
             $request->query->getInt('page', 1), 
             6
         );
-        }
+        
         return $this->render('user/read.html.twig', ['users' => $users]);
     }
 
