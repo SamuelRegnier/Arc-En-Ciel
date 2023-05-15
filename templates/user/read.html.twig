@@ -5,26 +5,43 @@
 {% block body %}
 <div class="container mt-4">
     <h1 class="d-flex justify-content-center mb-3">Utilisateurs école Sarments</h1>
-        <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
-            {% for user in users %}
-                <div class="card px-0 text-white bg-primary mb-3 mx-3 justify-content-center" style="max-width: 20rem;">
-                    <h5 class="text-center mt-1">{{user.lastName}} {{ user.firstName}}</h5>
-                    <a href="{{ path('user_select_id', { id: user.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
-                    {% if user.roles[0] == "ROLE_ADMIN" %}
-                        <p class="card-text d-flex justify-content-center">Directeur</p>
-                    {% endif %}
-                    {% if user.roles[0] == "ROLE_ENSEIGNANT" %}
-                        <p class="card-text d-flex justify-content-center">Enseignant</p>
-                    {% endif %}
-                    {% if user.roles[0] == "ROLE_BENEVOLE" %}
-                        <p class="card-text d-flex justify-content-center">Bénévole</p>
-                    {% endif %}
-                    {% if user.roles[0] == "ROLE_PARENT" %}
-                        <p class="card-text d-flex justify-content-center">Parents</p>
-                    {% endif %}
-                </div>
-            {% endfor %}
+    <form action="{{ path('user_select') }}" method="post">
+        <div class="d-flex justify-content-center my-3">
+            <div class="mx-1">
+                <label for="role">Role : </label>
+                <select name="role" id="role">
+                    <option value="selectDeBase" disabled selected>Selectionner un role</option>
+                    <option value="ROLE_ADMIN">Directeur</option>
+                    <option value="ROLE_ENSEIGNANT">Enseignant</option>
+                    <option value="ROLE_BENEVOLE">Bénévole</option>
+                    <option value="ROLE_PARENT">Parent</option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" value="Rechercher" class="btn btn-outline-info btn-sm mx-1">
+            </div>
         </div>
+    </form>
+    <div class="row row-cols-1 row-cols-md-3 g-4 d-flex justify-content-center">
+        {% for user in users %}
+            <div class="card px-0 text-white bg-primary mb-3 mx-3 justify-content-center" style="max-width: 20rem;">
+                <h5 class="text-center mt-1">{{user.lastName}} {{ user.firstName}}</h5>
+                <a href="{{ path('user_select_id', { id: user.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
+                {% if user.roles[0] == "ROLE_ADMIN" %}
+                    <p class="card-text d-flex justify-content-center">Directeur</p>
+                {% endif %}
+                {% if user.roles[0] == "ROLE_ENSEIGNANT" %}
+                    <p class="card-text d-flex justify-content-center">Enseignant</p>
+                {% endif %}
+                {% if user.roles[0] == "ROLE_BENEVOLE" %}
+                    <p class="card-text d-flex justify-content-center">Bénévole</p>
+                {% endif %}
+                {% if user.roles[0] == "ROLE_PARENT" %}
+                    <p class="card-text d-flex justify-content-center">Parents</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
     <div class="d-flex justify-content-center mb-3">
         {% if app.user.roles[0] == "ROLE_ADMIN" %}
             <a href="{{ path('user_create') }}"><button type="button" class="btn btn-outline-primary btn-lg">Créer profil</button></a>

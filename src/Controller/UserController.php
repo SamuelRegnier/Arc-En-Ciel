@@ -18,7 +18,7 @@ Use App\Form\UpdatePasswordType;
 class UserController extends AbstractController
 {
     #[Route('/user/select', name: 'user_select')]
-    public function select(UserRepository $repository,
+    public function select(UserRepository $userRepository,
      PaginatorInterface $paginator,
       Request $request,
       ): Response
@@ -28,12 +28,20 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        if($request->request->get('role')){
+            $role = $request->request->get('role');
+            $users = $paginator->paginate(
+                $user = $userRepository -> findByRole($role),
+                $request->query->getInt('page', 1), 
+                6
+            );
+        } else {    
         $users = $paginator->paginate(
-            $repository -> findAllOrderBy(),
+            $userRepository -> findAllOrderBy(),
             $request->query->getInt('page', 1), 
             6
         );
-        
+        }
         return $this->render('user/read.html.twig', ['users' => $users]);
     }
 
