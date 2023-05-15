@@ -12,6 +12,8 @@ Use Knp\Component\Pager\PaginatorInterface;
 Use Doctrine\ORM\EntityManagerInterface;
 Use App\Entity\User;
 Use App\Form\UserType;
+Use App\Form\UpdateProfilType;
+Use App\Form\UpdatePasswordType;
 
 class UserController extends AbstractController
 {
@@ -98,7 +100,6 @@ class UserController extends AbstractController
     #[Route('/user/update/{id}', name: 'user_update')]
     public function edit(
     User $user,
-    UserPasswordHasherInterface $passwordHasher,
     Request $request,
     EntityManagerInterface $manager
     ): Response
@@ -112,27 +113,65 @@ class UserController extends AbstractController
         if (!$isAdmin){
             return $this->redirectToRoute('user_select');
         }
-
-        $form = $this->createForm(UserType::class, $user);
+        
+        $form = $this->createForm(UpdateProfilType::class, $user);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            if($form->get('password')->getData() == $form->get('confirmationPassword')->getData()) {
+            $manager->persist($user);
+            $manager->flush();
+            return $this->redirectToRoute('user_select_id', ['id'=> $user->getId()]);
+        }
+
+        return $this->render('user/update.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/user/mdp/{id}', name: 'user_updateMdp')]
+    public function editMpd(
+        User $user,
+        UserPasswordHasherInterface $passwordHasher,
+        Request $request,
+        EntityManagerInterface $manager
+    ): Response
+    {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
+        if($this->getUser() != $user){
+            return $this->redirectToRoute('user_select_id', ['id'=> $user->getId()]);
+        }
+        
+        $oldUser = $this->getUser();
+        $form = $this->createForm(UpdatePasswordType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $hashMdpActuel = $passwordHasher->isPasswordValid(
+                $oldUser,
+                $form->get('password')->getData()
+            );
+            if($hashMdpActuel && $form->get('newPassword')->getData() == $form->get('confirmationPassword')->getData()) {
                 $user->setPassword(
                     $passwordHasher->hashPassword(
                         $user,
                         $form->get('password')->getData()
                     )
                 );
-            $manager->persist($user);
-            $manager->flush();
-            return $this->redirectToRoute('user_select');
-        }
-        $this->addFlash('danger', 'Erreur lors de la confirmation du mot de passe!');
-        return $this->redirectToRoute('user_create');
-    }
+                $manager->persist($user);
+                $manager->flush();
+                return $this->redirectToRoute('user_select_id', ['id'=> $user->getId()]);
+            }
 
-        return $this->render('user/update.html.twig', [
+            $this->addFlash('danger', 'Erreur lors de la confirmation du mot de passe!');
+            return $this->redirectToRoute('user_updateMdp');
+        }
+
+        return $this->render('user/updateMdp.html.twig', [
             'form' => $form->createView(),
         ]);
     }

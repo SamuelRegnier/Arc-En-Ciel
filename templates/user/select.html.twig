@@ -42,6 +42,9 @@
                 <a href="{{ path('user_update', { id: user.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
                 <a href="{{ path('user_delete', { id: user.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
             {% endif %}
+            {% if app.user.id == user.id %}
+                <a href="{{ path('user_updateMdp', { id: user.id }) }}"><input type="button" class="btn btn-outline-warning btn-lg mx-1" value="Modifier Mot De Passe"></a>
+            {% endif %}
             <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
         </div>
     </div>

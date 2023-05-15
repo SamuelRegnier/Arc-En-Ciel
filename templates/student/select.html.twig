@@ -36,20 +36,20 @@
                     </div>
                 {% endif %}
                 <p class="border border-info pl-2 mt-3">Lunettes Extérieures : {{student.outdoorGlasses}}</p>
-                {% for user in users %}
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th colspan="2">Parents</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Parents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
                             <tr> 
                                 <td><a href="{{ path('user_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
                             </tr>
-                        </tbody>
-                    </table>
-                {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="d-flex justify-content-center my-3">

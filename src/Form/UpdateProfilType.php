@@ -6,13 +6,8 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class UserType extends AbstractType
+class UpdateProfilType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -37,7 +32,7 @@ class UserType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Email'
                 ],
-                    'label' => 'Email'
+                'label' => 'Email'
                 ])
             ->add('phone', TextType::class,[
                 'attr' => [
@@ -64,21 +59,6 @@ class UserType extends AbstractType
                 'label' => 'Actif'
                 ]
                 )
-            ->add('password',TextType::class,[
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Mot De Passe'
-                ],
-                'label' => 'Mot de passe'
-                ])
-            ->add('confirmationPassword',TextType::class,[
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Confirmation Mot De Passe'
-                ],
-                'mapped' => false,
-                'label' => 'Confirmation : ',
-                ])
             ->add('imageFile',VichImageType::class,[
                 'attr' => [
                     'class' => 'formFile',
@@ -105,7 +85,6 @@ class UserType extends AbstractType
                 'label' => 'Role'
                 ]
                 )
-        ;
         ;
     }
 
