@@ -75,7 +75,7 @@ class StudentController extends AbstractController
         ]);
         }
         $students = $paginator->paginate(
-            $student = $studentRepository -> findAll(),
+            $student = $studentRepository -> findAllOrderBy(),
             $request->query->getInt('page', 1), 
             6
         );
