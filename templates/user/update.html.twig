@@ -62,22 +62,6 @@
                         <div class="col-6">
                             <p>{{ form_widget(form.isActive) }}</p>
                         </div>
-                    </div>    
-                    <div class="row">
-                        <div class="col-6 text-right mt-2">
-                            <p>{{ form_label(form.password) }}</p>
-                        </div>
-                        <div class="col-6">
-                            <p>{{ form_widget(form.password) }}</p>
-                        </div>
-                    </div>    
-                    <div class="row">
-                        <div class="col-6 text-right mt-2">
-                            <p>{{ form_label(form.confirmationPassword) }}</p>
-                        </div>
-                        <div class="col-6">
-                            <p>{{ form_widget(form.confirmationPassword) }}</p>
-                        </div>
                     </div>
                     <div class="row">
                         <div class="col-6 text-right mt-2">
@@ -91,7 +75,7 @@
             </div>    
             <div class="d-flex justify-content-center mt-3">
                 <input type="submit" class="btn btn-outline-success btn-lg mx-1" value="Enregistrer">
-                <a href="{{ path('user_select') }}"><input type="button" class="btn btn-outline-info btn-lg mx-1" value="Annuler"></a>
+                <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Annuler" onclick="history.back()">
             </div>
         {{form_end(form)}}
     </div>
