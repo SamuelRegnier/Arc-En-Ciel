@@ -28,10 +28,12 @@ class UserController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $admin = $this->getUser()->getRoles();
+
         if($request->request->get('search')){
             $name = '%'.$request->request->get('search').'%';
             $users = $paginator->paginate(
-                $user = $userRepository -> findByName($name),
+                $user = $userRepository -> findByName($name, $admin),
                 $request->query->getInt('page', 1), 
                 6
             );
@@ -41,7 +43,7 @@ class UserController extends AbstractController
         if($request->request->get('role')){
             $role = $request->request->get('role');
             $users = $paginator->paginate(
-                $user = $userRepository -> findByRole($role),
+                $user = $userRepository -> findByRole($role, $admin),
                 $request->query->getInt('page', 1), 
                 6
             );
@@ -49,9 +51,9 @@ class UserController extends AbstractController
         }
 
         $users = $paginator->paginate(
-            $userRepository -> findAllOrderBy(),
-            $request->query->getInt('page', 1), 
-            6
+        $userRepository -> findAllOrderBy($admin),
+        $request->query->getInt('page', 1), 
+        6
         );
         
         return $this->render('user/read.html.twig', ['users' => $users]);

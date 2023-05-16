@@ -28,22 +28,42 @@
     </form>
     <div class="row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 d-flex justify-content-center">
         {% for user in users %}
-            <div class="card px-0 text-white bg-primary mb-3 mx-3 justify-content-center" style="max-width: 20rem;">
-                <h5 class="text-center mt-1">{{user.lastName}} {{ user.firstName}}</h5>
-                <a href="{{ path('user_select_id', { id: user.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
-                {% if user.roles[0] == "ROLE_ADMIN" %}
-                    <p class="card-text d-flex justify-content-center">Directeur</p>
-                {% endif %}
-                {% if user.roles[0] == "ROLE_ENSEIGNANT" %}
-                    <p class="card-text d-flex justify-content-center">Enseignant</p>
-                {% endif %}
-                {% if user.roles[0] == "ROLE_BENEVOLE" %}
-                    <p class="card-text d-flex justify-content-center">Bénévole</p>
-                {% endif %}
-                {% if user.roles[0] == "ROLE_PARENT" %}
-                    <p class="card-text d-flex justify-content-center">Parents</p>
-                {% endif %}
-            </div>
+            {% if user.isActive == true %}
+                <div class="card px-0 text-white mb-3 mx-3 justify-content-center bg-primary" style="max-width: 20rem;">
+                    <h5 class="text-center mt-1">{{user.lastName}} {{ user.firstName}}</h5>
+                    <a href="{{ path('user_select_id', { id: user.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
+                    {% if user.roles[0] == "ROLE_ADMIN" %}
+                        <p class="card-text d-flex justify-content-center">Directeur</p>
+                    {% endif %}
+                    {% if user.roles[0] == "ROLE_ENSEIGNANT" %}
+                        <p class="card-text d-flex justify-content-center">Enseignant</p>
+                    {% endif %}
+                    {% if user.roles[0] == "ROLE_BENEVOLE" %}
+                        <p class="card-text d-flex justify-content-center">Bénévole</p>
+                    {% endif %}
+                    {% if user.roles[0] == "ROLE_PARENT" %}
+                        <p class="card-text d-flex justify-content-center">Parents</p>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {% if user.isActive == false %}
+                <div class="card px-0 text-white mb-3 mx-3 justify-content-center bg-warning" style="max-width: 20rem;">
+                    <h5 class="text-center mt-1">{{user.lastName}} {{ user.firstName}}</h5>
+                    <a href="{{ path('user_select_id', { id: user.id }) }}" class="stretched-link img-fluid"><img style="max-width: 100%;" src="{{ vich_uploader_asset(user, 'imageFile') }}"></a>
+                    {% if user.roles[0] == "ROLE_ADMIN" %}
+                        <p class="card-text d-flex justify-content-center">Directeur</p>
+                    {% endif %}
+                    {% if user.roles[0] == "ROLE_ENSEIGNANT" %}
+                        <p class="card-text d-flex justify-content-center">Enseignant</p>
+                    {% endif %}
+                    {% if user.roles[0] == "ROLE_BENEVOLE" %}
+                        <p class="card-text d-flex justify-content-center">Bénévole</p>
+                    {% endif %}
+                    {% if user.roles[0] == "ROLE_PARENT" %}
+                        <p class="card-text d-flex justify-content-center">Parents</p>
+                    {% endif %}
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
     <div class="d-flex justify-content-center mb-3">

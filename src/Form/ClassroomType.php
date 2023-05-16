@@ -49,7 +49,7 @@ class ClassroomType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 
                         function($user, $key, $index) {
-                            if ($user->getClassroom() == null){
+                            if ($user->getClassroom() == null && $user->isIsActive() == true){
                                 return $user->getlastName() . ' ' . $user->getfirstName();
                             }
                         },

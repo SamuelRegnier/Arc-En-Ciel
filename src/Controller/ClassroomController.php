@@ -124,9 +124,6 @@ class ClassroomController extends AbstractController
             return $this->redirectToRoute('classroom_select');
         }
 
-        // $class =  $classroomRepository ->findOneBy(['id' => $id]);
-        // $classImageFile = $class->getImageFile();
-
         $form = $this->createForm(ClassroomType::class, $classroom);
 
         $form->handleRequest($request);
