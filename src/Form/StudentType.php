@@ -118,7 +118,9 @@ class StudentType extends AbstractType
             ->add('users',EntityType::class,[
                 'class' => User::class,
                 'choice_label' => function($users, $key, $index) {
-                    return $users->getlastName() . ' ' . $users->getfirstName();
+                    if ($users->isIsActive() == true){
+                        return $users->getlastName() . ' ' . $users->getfirstName();
+                    }
                 },
                 'label' => 'Parents : ',
                 'mapped' => false,

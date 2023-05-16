@@ -56,8 +56,16 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->save($user, true);
     }
 
-    public function findAllOrderBy(): array
+    public function findAllOrderBy($admin): array
     {
+        if ($admin[0] != "ROLE_ADMIN"){
+            return $this->createQueryBuilder('user')
+                ->andWhere('user.isActive = true')
+                ->addOrderBy('user.roles', 'ASC')
+                ->getQuery()
+                ->getResult()
+            ;
+        }
         return $this->createQueryBuilder('user')
             ->addOrderBy('user.roles', 'ASC')
             ->getQuery()
@@ -65,8 +73,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
 
-    public function findByRole($role): array
+    public function findByRole($role, $admin): array
     {
+        if ($admin[0] != "ROLE_ADMIN"){
+            return $this->createQueryBuilder('user')
+                ->andWhere('user.isActive = true')
+                ->andWhere('user.roles LIKE :value')
+                ->setParameter('value', '%'.$role.'%')
+                ->getQuery()
+                ->getResult()
+            ;
+        }
         return $this->createQueryBuilder('user')
             ->andWhere('user.roles LIKE :value')
             ->setParameter('value', '%'.$role.'%')
@@ -75,8 +92,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
 
-    public function findByName($name): array
+    public function findByName($name, $admin): array
     {
+        if ($admin[0] != "ROLE_ADMIN"){
+            return $this->createQueryBuilder('user')
+                ->andWhere('user.isActive = true')
+                ->andWhere('user.lastName LIKE :value')
+            ->setParameter('value', '%'.$name.'%')
+            ->getQuery()
+            ->getResult()
+            ;
+        }
         return $this->createQueryBuilder('user')
             ->andWhere('user.lastName LIKE :value')
             ->setParameter('value', '%'.$name.'%')
