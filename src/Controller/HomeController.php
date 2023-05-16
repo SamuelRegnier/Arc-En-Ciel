@@ -20,4 +20,17 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    #[Route('/legalNotice', name: 'legal_notice')]
+    public function legalNotice(): Response
+    {
+
+        if(!$this->getUser()){
+            return $this->redirectToRoute('app_login');
+        }
+
+        return $this->render('home/legalNotice.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
 }
