@@ -16,6 +16,13 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        <style>       
+            hr{
+                height: 3px;
+                background-color: #000000;
+                border: none;
+            }
+        </style>
     </head>
     <body style="background-image: url('{{ asset('image/crayons.jpg') }}'); background-size: cover;">
         {% if app.user %}
@@ -24,5 +31,8 @@
             {% endblock %}
         {% endif %}
         {% block body %}{% endblock %}
+        {% block footer %}
+            {% include "partials/_footer.html.twig" %}
+        {% endblock %}
     </body>
 </html>
