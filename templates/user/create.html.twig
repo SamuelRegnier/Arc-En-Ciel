@@ -3,6 +3,7 @@
 {% block title %}Création Utilisateur{% endblock %}
 
 {% block body %}
+    {% if app.user.roles[0] == "ROLE_ADMIN" %}
     <div class="container">
         <h1 class="d-flex justify-content-center my-4">Création Utilisateur</h1>
         {{form_start(form)}}
@@ -92,4 +93,5 @@
             </div>
         {{form_end(form)}}
     </div>
+    {% endif %}
 {% endblock %}
