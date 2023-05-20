@@ -31,7 +31,7 @@
                 {% endif %}
                 {% if student.descriptionAllergy != null %}
                     <div class="border border-warning pl-2">
-                        <p>Description du PAI : </p>
+                        <p>Description de l'allergie : </p>
                         <p>{{student.descriptionAllergy}}</p>
                     </div>
                 {% endif %}
@@ -54,8 +54,8 @@
         </div>
         <div class="d-flex justify-content-center my-3">
             {% if app.user.roles[0] == "ROLE_ADMIN" %}
-                <a href="{{ path('student_update', { id: student.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
-                <a href="{{ path('student_delete', { id: student.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
+                <a href="{{ path('student_update', { id: student.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier élève</button></a>
+                <a href="{{ path('student_delete', { id: student.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer élève</button></a>
             {% endif %}
             <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
         </div>

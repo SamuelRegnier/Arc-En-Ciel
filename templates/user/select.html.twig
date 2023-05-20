@@ -29,9 +29,16 @@
                     </thead>
                     <tbody>
                         {% for student in students %}
-                            <tr> 
-                                <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
-                            </tr>
+                            {% if app.user.roles[0] == "ROLE_ADMIN" %}
+                                <tr> 
+                                    <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
+                                </tr>
+                            {% endif %}
+                            {% if app.user.roles[0] != "ROLE_ADMIN" %}
+                                <tr> 
+                                    <td>{{student.lastName}} {{student.firstName}}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
