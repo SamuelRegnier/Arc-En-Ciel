@@ -46,8 +46,8 @@
         </div>   
         <div class="d-flex justify-content-center mt-3">
             {% if app.user.roles[0] == "ROLE_ADMIN" %}
-                <a href="{{ path('classroom_update', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier profil</button></a>
-                <a href="{{ path('classroom_delete', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer profil</button></a>
+                <a href="{{ path('classroom_update', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-primary btn-lg mx-1">Modifier classe</button></a>
+                <a href="{{ path('classroom_delete', { id: classroom.id }) }}"><button type="button" class="btn btn-outline-danger btn-lg mx-1">Supprimer classe</button></a>
             {% endif %}
             <input type="button" class="btn btn-outline-info btn-lg mx-1" value="Retour" onclick="history.back()">
         </div>
