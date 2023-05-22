@@ -12,9 +12,11 @@
           <a class="nav-link active" href="{{ path('classroom_select') }}">Classes
             <span class="visually-hidden">(current)</span>
           </a>
-          <a class="nav-link active" href="{{ path('student_select') }}">Elèves
-            <span class="visually-hidden">(current)</span>
-          </a>
+          {% if app.user.roles[0] != "ROLE_PARENT" %}
+            <a class="nav-link active" href="{{ path('student_select') }}">Elèves
+              <span class="visually-hidden">(current)</span>
+            </a>
+          {% endif %}
           <a class="nav-link active" href="#">Devoirs
             <span class="visually-hidden">(current)</span>
           </a>
