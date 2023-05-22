@@ -58,6 +58,7 @@ class ClassroomController extends AbstractController
 
     #[Route('/classroom/select/{id}', name: 'classroom_select_id')]
     public function selectById(ClassroomRepository $classroomRepository,
+    UserRepository $userRepository,
      int $id
       ): Response
     {
@@ -66,12 +67,16 @@ class ClassroomController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $classrooms =  $classroomRepository ->findOneByTeacher($id);
         $classroom =  $classroomRepository ->findOneBy(['id' => $id]);
+        $user = null;
 
-        //dd($classrooms, $classroom);
+        if ($classroom->getUser() != null){
+            $userId = $classroom->getUser()->getId();
+            $user = $userRepository ->findOneBy(['id' => $userId]);
+            return $this->render('classroom/select.html.twig', ['classroom' => $classroom, 'user' => $user]);
+        }
         
-        return $this->render('classroom/select.html.twig', ['classroom' => $classroom]);
+        return $this->render('classroom/select.html.twig', ['classroom' => $classroom, 'user' => $user]);
     }
 
     #[Route('/classroom/new', name: 'classroom_create')]

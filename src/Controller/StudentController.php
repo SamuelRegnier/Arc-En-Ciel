@@ -29,6 +29,11 @@ class StudentController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        $isParent = $this->isGranted("ROLE_PARENT");
+        if ($isParent){
+            return $this->redirectToRoute('app_home');
+        }
+
         $classrooms = $classroomRepository -> findAll();
         $levels = $levelRepository -> findAll();
 
@@ -52,7 +57,6 @@ class StudentController extends AbstractController
                 $request->query->getInt('page', 1), 
                 6
             );
-            //dd($level);
             return $this->render('student/read.html.twig', [
                 'levels' => $levels,
                 'students' => $students,
@@ -62,7 +66,6 @@ class StudentController extends AbstractController
         if (($request->request->get('classe')) && ($request->request->get('niveau'))){
             $classe = $request->request->get('classe');
             $level = $request->request->get('niveau');
-            //dd($level, $classe);
             $students = $paginator->paginate(
                 $student = $studentRepository -> findByClassLevel($classe, $level),
                 $request->query->getInt('page', 1), 
@@ -95,6 +98,11 @@ class StudentController extends AbstractController
 
         if(!$this->getUser()){
             return $this->redirectToRoute('app_login');
+        }
+
+        $isParent = $this->isGranted("ROLE_PARENT");
+        if ($isParent){
+            return $this->redirectToRoute('app_home');
         }
 
         // On crée un nouveau tableau pour les parents

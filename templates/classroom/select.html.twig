@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                {% for user in classroom.user %}
+                {% if (user != null) %}
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -23,11 +23,11 @@
                         </thead>
                         <tbody>
                             <tr> 
-                                <td><a href="{{ path('student_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
+                                <td><a href="{{ path('user_select_id', { id: user.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{user.lastName}} {{user.firstName}}</button></a></td>
                             </tr>
                         </tbody>
                     </table>
-                {% endfor %}
+                {% endif %}
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -36,9 +36,16 @@
                     </thead>
                     <tbody>
                         {% for student in classroom.students %}
-                            <tr> 
-                                <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
-                            </tr>
+                            {% if app.user.roles[0] != "ROLE_PARENT" %}
+                                <tr> 
+                                    <td><a href="{{ path('student_select_id', { id: student.id }) }}"><button type="button" class="btn btn-outline-success btn-sm mx-1">{{student.lastName}} {{student.firstName}}</button></a></td>
+                                </tr>
+                            {% endif %}
+                            {% if app.user.roles[0] == "ROLE_PARENT" %}
+                                <tr> 
+                                    <td>{{student.lastName}} {{student.firstName}}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
