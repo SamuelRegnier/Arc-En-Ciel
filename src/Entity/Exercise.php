@@ -30,6 +30,9 @@ class Exercise
     #[Assert\Length(max: 1000 ,maxMessage:'La description ne doit pas dépasser 1000 caracères.')]
     private ?string $description = null;
 
+    #[ORM\ManyToOne(inversedBy: 'exercises')]
+    private ?Matter $matter = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -67,6 +70,18 @@ class Exercise
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getMatter(): ?Matter
+    {
+        return $this->matter;
+    }
+
+    public function setMatter(?Matter $matter): self
+    {
+        $this->matter = $matter;
 
         return $this;
     }

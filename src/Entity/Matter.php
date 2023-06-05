@@ -24,9 +24,13 @@ class Matter
     #[ORM\ManyToMany(targetEntity: Task::class, mappedBy: 'matter')]
     private Collection $tasks;
 
+    #[ORM\OneToMany(mappedBy: 'matter', targetEntity: Exercise::class)]
+    private Collection $exercises;
+
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->exercises = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,6 +72,36 @@ class Matter
     {
         if ($this->tasks->removeElement($task)) {
             $task->removeMatter($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Exercise>
+     */
+    public function getExercises(): Collection
+    {
+        return $this->exercises;
+    }
+
+    public function addExercise(Exercise $exercise): self
+    {
+        if (!$this->exercises->contains($exercise)) {
+            $this->exercises->add($exercise);
+            $exercise->setMatter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExercise(Exercise $exercise): self
+    {
+        if ($this->exercises->removeElement($exercise)) {
+            // set the owning side to null (unless already changed)
+            if ($exercise->getMatter() === $this) {
+                $exercise->setMatter(null);
+            }
         }
 
         return $this;
